@@ -1,0 +1,212 @@
+/** You can add header styles to this file, and also import other style files **/
+@import url('../../assets/css/theme.less');
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  .footer-container {
+    color: @primary;
+    padding: 15px 15px;
+    background-color: @white;
+    box-shadow: 0px 0px 4px 0px #ccc;
+
+    .footer-container-row {
+      align-items: center;
+    }
+
+    .copyright {
+      text-align: left;
+    }
+
+    .footer-nav {
+      text-align: right;
+
+      .nav {
+        text-align: right;
+        display: block;
+
+        li {
+          display: inline-block;
+          margin-left: 20px;
+          transition: 0.5s all;
+          border: 2px solid;
+          width: 30px;
+          text-align: center;
+          height: 30px;
+          line-height: 26px;
+          border-radius: 100px;
+          border: 2px solid @white;
+
+          a {
+            cursor: pointer;
+            color: @white;
+            display: block;
+
+            i {
+              transition: 0.5s all;
+            }
+          }
+
+          &.facebook {
+            color: @white;
+            background-color: #3b5998;
+
+            &:hover {
+              background-color: @white;
+              box-shadow: @box-shadow-hover;
+              border-color: #3b5998;
+
+              a {
+                color: #3b5998;
+              }
+            }
+          }
+
+          &.youtube {
+            color: @white;
+            background-color: #c4302b;
+
+            &:hover {
+              background-color: @white;
+              box-shadow: @box-shadow-hover;
+              border-color: #c4302b;
+
+              a {
+                color: #c4302b;
+              }
+            }
+          }
+
+          &.twitter {
+            color: @white;
+            background-color: #1DA1F2;
+
+            &:hover {
+              background-color: @white;
+              box-shadow: @box-shadow-hover;
+              border-color: #1DA1F2;
+
+              a {
+                color: #1DA1F2;
+              }
+            }
+          }
+
+          &.pinterest {
+            color: @white;
+            background-color: #c8232c;
+
+            &:hover {
+              background-color: @white;
+              box-shadow: @box-shadow-hover;
+              border-color: #c8232c;
+
+              a {
+                color: #c8232c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/** responsive mobile layout style ---------------------- **/
+
+@media (min-width: 320px) and (max-width: 479px) {
+  footer {
+    .footer-container {
+
+      .copyright {
+        text-align: center;
+      }
+
+      .footer-nav {
+        text-align: center;
+        margin-top: 10px;
+
+        .nav {
+          text-align: center;
+          padding-top: 10px;
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 480px) and (max-width: 575px) {
+  footer {
+    .footer-container {
+
+      .copyright {
+        text-align: center;
+      }
+
+      .footer-nav {
+        text-align: center;
+        margin-top: 10px;
+
+        .nav {
+          text-align: center;
+          padding-top: 10px;
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  footer {
+    .footer-container {
+
+      .copyright {
+        text-align: center;
+      }
+
+      .footer-nav {
+        text-align: center;
+        margin-top: 10px;
+
+        .nav {
+          text-align: center;
+          padding-top: 10px;
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  footer {
+    .footer-container {
+      .copyright {
+        text-align: center;
+        max-width: 100%;
+        flex: 100%;
+      }
+
+      .footer-nav {
+        text-align: center;
+        margin-top: 10px;
+        max-width: 100%;
+        flex: 100%;
+
+        .nav {
+          text-align: center;
+          padding-top: 10px;
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (min-width: 1200px) {}

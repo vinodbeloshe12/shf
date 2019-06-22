@@ -1,0 +1,59 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">FAQ'S</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>faq's</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container ">
+  <div class="row page-row">
+    <div class="col-12 section">
+      <div *ngIf="faqData" class="row">
+        <div class="col-md-6">
+          <div class="section-heading1">
+            <h3 class="contact-title">A. General FAQ'S –</h3>
+          </div>
+          <div class="accordion">
+            <div class="option" *ngFor="let data of faqData[1]; let i=index" [ngClass]="showAccordianA && selectedIndex == i?'active':''">
+              <input class="toggle" type="checkbox" />
+              <label class="title" (click)="openAccordian('a',i)" for="toggle{{i}}">{{data.question}}</label>
+              <div class="content">
+                <p>{{data.answer}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="section-heading1">
+            <h3 class="contact-title">B. Order Related FAQ'S –</h3>
+          </div>
+          <div class="accordion">
+            <div class="option" *ngFor="let data of faqData[2]; let i=index" [ngClass]="showAccordianB && selectedIndex == i?'active':''">
+              <input type="checkbox" class="toggle " />
+              <label class="title" (click)="openAccordian('b',i)" for="toggle1{{i}}">{{data.question}}</label>
+              <div class="content">
+                <p>{{data.answer}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

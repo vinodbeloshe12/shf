@@ -1,0 +1,34 @@
+<div *ngIf="contentData && contentData.title" class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">{{contentData.title}}</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>{{contentData.title}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="contentData && contentData.description" class="container page-container content-page">
+  <div class="row page-row">
+    <div class="col-12 section">
+      <!-- <img src="{{contentData.image_name}}" alt=""> -->
+      <div [innerHtml]="applyCss(contentData.description)">
+      </div>
+    </div>
+  </div>
+
+
+</div>

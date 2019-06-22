@@ -1,0 +1,128 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">Our Presence</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>Our Presence</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container categories-page">
+  <div class="row page-row ">
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container">
+      <div class="section-wrapper">
+
+        <div *ngFor="let location of location_india;let parent=index;">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 location-container" (click)="getSelectedCityData(parent,i)"
+              *ngFor="let data of location; let i=index;">
+              <div class="location-wrapper" [ngClass]="selectedIndex==i && rowIndex==parent?'active':''">
+                <h3 class="location-title">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  <span>{{data.city}}</span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="overlay-popup" *ngIf="selectedCity && rowIndex==parent">
+            <div class="row no-gutters location-details-container">
+              <div class="close-icon d-block d-lg-none" (click)="closeMobileModel()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-12  location-detail" *ngFor="let data of selectedCity">
+
+                <div class="location-info address">
+                  <h3 class="label">
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                    <span>{{data.contact_person}}</span>
+                  </h3>
+                  <p class="value">{{data.address}} , {{data.city}} <span *ngIf="data.state">, {{data.state}}</span>
+                    <span *ngIf="data.pin"> - {{data.pin}}</span></p>
+                </div>
+                <div class="location-info contact" *ngIf="data.mobile || data.contact ">
+                  <h3 class="label">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>Call Us</span>
+                  </h3>
+                  <p class="value" *ngIf="data.mobile || data.contact ">{{data.mobile}}
+                    <em *ngIf="data.mobile && data.contact">/</em> {{data.contact}}</p>
+                </div>
+                <div class="location-info email" *ngIf="data.email">
+                  <h3 class="label">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span>Email</span>
+                  </h3>
+                  <p class="value">{{data.email}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-wrapper">
+        <h3>Outside India</h3>
+        <div *ngFor="let location of location_outside_india;let parent=index;">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 location-container" (click)="getSelectedCityDataOutside(parent,i)"
+              *ngFor="let data of location; let i=index;">
+              <div class="location-wrapper" [ngClass]="selectedIndexOutside==i && rowIndexOutside==parent?'active':''">
+                <h3 class="location-title">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  <span>{{data.city}}</span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="overlay-popup" *ngIf="selectedCityOutside && rowIndexOutside==parent">
+            <div class="row no-gutters location-details-container">
+              <div class="close-icon d-block d-lg-none" (click)="closeMobileModel()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-12  location-detail" *ngFor="let data of selectedCityOutside">
+
+                <div class="location-info address">
+                  <h3 class="label">
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                    <span>{{data.contact_person}}</span>
+                  </h3>
+                  <p class="value">{{data.address}} , {{data.city}} <span *ngIf="data.state">, {{data.state}}</span>
+                    <span *ngIf="data.pin"> - {{data.pin}}</span></p>
+                </div>
+                <div class="location-info contact" *ngIf="data.mobile || data.contact ">
+                  <h3 class="label">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>Call Us</span>
+                  </h3>
+                  <p class="value" *ngIf="data.mobile || data.contact ">{{data.mobile}}
+                    <em *ngIf="data.mobile && data.contact">/</em> {{data.contact}}</p>
+                </div>
+                <div class="location-info email" *ngIf="data.email">
+                  <h3 class="label">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span>Email</span>
+                  </h3>
+                  <p class="value">{{data.email}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

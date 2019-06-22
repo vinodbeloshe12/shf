@@ -1,0 +1,530 @@
+<div class="container-fluid page-header-container">
+  <div class="container" *ngIf="productDetailsData">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">{{productDetailsData.data.name}}</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list" routerLink="/listing/{{productDetailsData.data.category_name}}">
+              <a>
+                <span>Listing</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>{{productDetailsData.data.category_name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="productDetailsData" class="container page-container detail-page">
+  <div class="row page-row">
+    <div class="col-12 page-section pd-info-section">
+      <div class="row section-row">
+        <div class="col-lg-6 pd-gallery-wrapper">
+          <div class="ngx-gallary-slider" *ngIf="zoomImage">
+            <div class="image-wrapper">
+              <img [imageZoom]="zoomImage" [src]="zoomImage" [lensStyle]="'WINDOW'" [maxZoomLevel]="1.2"
+                [minZoomLevel]="0.5" [lensBorder]="1">
+            </div>
+            <div class="swiper-container" [swiper]="config" *ngIf="productDetailsData">
+              <div class="swiper-wrapper">
+                <div *ngFor="let item of productDetailsData.images;let i=index;"
+                  [ngClass]="selectedIndex == i?'active':''" class="swiper-slide">
+                  <img class="img-fluid" [src]="imageServer+item.image_name"
+                    (click)="pushImageToContainer(item.image_name);selectedIndex = i">
+                </div>
+              </div>
+              <div *ngIf="productDetailsData.images.length > 4" class="swiper-button-next"></div>
+              <div *ngIf="productDetailsData.images.length > 4" class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 pd-info-wrapper">
+          <div class="row">
+            <div class="col-12 pricing-wrapper">
+              <div class="row">
+                <div class="col-4 pricing-container">
+                  <div class="pricing-tags">
+                    <h6 class="label">MSRP</h6>
+                    <p class="value">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{productDetailsData.data.price}}</p>
+                  </div>
+                </div>
+                <div class="col-4 pricing-container">
+                  <div class="pricing-tags">
+                    <h6 class="label">In Stock</h6>
+                    <p class="value">{{productDetailsData.data.stock}}</p>
+                  </div>
+                </div>
+                <div class="col-4 pricing-container">
+                  <div class="pricing-tags">
+                    <h6 class="label">Quantity</h6>
+                    <p class="value">
+                      <input type="number" min="1" max="(productDetailsData.data.stock)+1" [(ngModel)]="productQuantity"
+                        (ngModelChange)="quantityChange(productQuantity,productDetailsData.data.stock)" />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 pd-btns-wrapper">
+              <div class="btns-container product-buttons">
+                <div class="pricing-container" *ngIf="productDetailsData.data.wholesale_price">
+                  <div class="pricing-tags">
+                    <h6 class="label">Wholesale Price</h6>
+                    <p class="value">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{productDetailsData.data.wholesale_price}}
+                    </p>
+                  </div>
+                </div>
+                <button class="btn btn-cart">
+                  <span class="icon">
+                    <i class="fa fa-shopping-bag faa-tada"></i>
+                  </span>
+                  <span class="label" (click)="addToCart()">Add to Cart</span>
+                </button>
+                <!-- <button class="btn btn-addtowish p-watch">
+                  <span class="icon-label">
+                    <i class="fa fa-heart"></i>
+                  </span>
+                  <span class="label">Add to Wishlist</span>
+                </button> -->
+              </div>
+            </div>
+            <div *ngIf="productDetailsData && productDetailsData.data" class="col-12 pd-spacs-wrapper">
+              <div class="share-buttons-wrapper">
+                <h6 class="label">Share It</h6>
+                <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter','whatsapp','sms','email']"
+                  [show]="5" [url]="locationURL" [autoSetMeta]="false"></share-buttons>
+              </div>
+              <div class="spacs-title">
+                <h3 class="title">Product Details</h3>
+              </div>
+              <div class="pd-spacs-container">
+                <p class="text-justify" [innerHtml]="productDetailsData.data.description | keepHtml"></p>
+                <!-- <ul class="spacs-table">
+                  <li class="list">
+                    <span class="label">Base area</span>
+                    <span class="value">128mm x 128m</span>
+                  </li>
+                  <li>
+                    <span class="label">Total height</span>
+                    <span class="value">85.50mm </span>
+                  </li>
+                  <li>
+                    <span class="label">Weight</span>
+                    <span class="value">Approximately 500 grams</span>
+                  </li>
+                  <li>
+                    <span class="label">Height with base</span>
+                    <span class="value">105.50mm</span>
+                  </li>
+                  <li>
+                    <span class="label">Metallurgy</span>
+                    <span class="value">24 Carat Gold Layer, Silver</span>
+                  </li>
+                  <li class="list">
+                    <span class="label">Base area</span>
+                    <span class="value">128mm x 128m</span>
+                  </li>
+                  <li>
+                    <span class="label">Total height</span>
+                    <span class="value">85.50mm </span>
+                  </li>
+                  <li>
+                    <span class="label">Weight</span>
+                    <span class="value">Approximately 500 grams</span>
+                  </li>
+                  <li>
+                    <span class="label">Height with base</span>
+                    <span class="value">105.50mm</span>
+                  </li>
+                  <li>
+                    <span class="label">Metallurgy</span>
+                    <span class="value">24 Carat Gold Layer, Silver</span>
+                  </li>
+                  <li class="list">
+                    <span class="label">Base area</span>
+                    <span class="value">128mm x 128m</span>
+                  </li>
+                  <li>
+                    <span class="label">Total height</span>
+                    <span class="value">85.50mm </span>
+                  </li>
+                  <li>
+                    <span class="label">Weight</span>
+                    <span class="value">Approximately 500 grams</span>
+                  </li>
+                  <li>
+                    <span class="label">Height with base</span>
+                    <span class="value">105.50mm</span>
+                  </li>
+                  <li>
+                    <span class="label">Metallurgy</span>
+                    <span class="value">24 Carat Gold Layer, Silver</span>
+                  </li>
+                
+                </ul> -->
+
+                <div class="enquiry"
+                  *ngIf="productDetailsData.data.recommendation && productDetailsData.data.enquiry==1">
+                  <form (ngSubmit)="submitEnquiry(enquiryData,$event)" #enquiry="ngForm">
+                    <ul class="review-forms">
+
+
+                      <li>
+                        <div class="review-txtbox">
+                          <input name="product_id" required [(ngModel)]="enquiryData.product_id" type="hidden">
+                        </div>
+                      </li>
+                      <li>
+                        <label>
+                          Name
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="name" required [(ngModel)]="enquiryData.name" type="text">
+                        </div>
+                      </li>
+                      <li>
+                        <label>
+                          Email
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="email" required [(ngModel)]="enquiryData.email"
+                            (keyup)="submitEnquiry(enquiryData,$event)" type="text">
+                        </div>
+                        <span class="error-message" *ngIf="emailValidate">Email is not valid</span>
+                      </li>
+                      <li>
+                        <label>
+                          Phone
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="phone" maxlength="10" (keypress)="onlyNumbers($event)" required
+                            [(ngModel)]="enquiryData.phone" type="text">
+                        </div>
+
+                      </li>
+                      <li>
+                        <label>
+                          Subject
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="subject" required [(ngModel)]="enquiryData.subject" type="text">
+                        </div>
+
+                      </li>
+                      <li>
+
+                        <label>
+                          Your Message
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <textarea required name="review" [(ngModel)]="enquiryData.message" class="textarea">
+                          </textarea>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="submit-review">
+                          <button type="submit" class="btn" [disabled]="!enquiry.form.valid">Submit</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 page-section pd-tabs-section">
+      <div class="row section-row product-tabs-row">
+        <div class="col-lg-12 pd-tabs-wrapper">
+          <div class="tabs-container">
+            <ul class="tabs-contarols">
+              <li class="tab tab-desc" [ngClass]="{'active': tabsIndex == 1}" (click)="selectTab(1)">
+                <span>Description</span>
+              </li>
+              <li class="tab tab-review" [ngClass]="{'active': tabsIndex == 2}" (click)="selectTab(2)">
+                <span>Reviews</span>
+                <span *ngIf="productDetailsData&&productDetailsData.reviews"
+                  class="review-count">({{productDetailsData.reviews.length}})</span>
+              </li>
+            </ul>
+          </div>
+          <div class="tabs-content-wrapper">
+            <div class="tabs-content desc-tab-content" [ngClass]="{'active': tabsIndex == 1}">
+              <ul class="tab-description">
+                <li>
+                  <h3>{{productDetailsData.data.name}}</h3>
+                  <p class="text-justify" [innerHtml]="productDetailsData.data.recommendation"></p>
+                </li>
+                <li>
+                  <div class="enquiry"
+                    *ngIf="!productDetailsData.data.recommendation && productDetailsData.data.enquiry==1">
+                    <form (ngSubmit)="submitEnquiry(enquiryData,$event)" #enquiry="ngForm">
+                      <ul class="review-forms">
+
+
+                        <li>
+                          <div class="review-txtbox">
+                            <input name="product_id" required [(ngModel)]="enquiryData.product_id" type="hidden">
+                          </div>
+                        </li>
+                        <li>
+                          <label>
+                            Name
+                            <span>*</span>
+                          </label>
+                          <div class="review-txtbox">
+                            <input name="name" required [(ngModel)]="enquiryData.name" type="text">
+                          </div>
+                        </li>
+                        <li>
+                          <label>
+                            Email
+                            <span>*</span>
+                          </label>
+                          <div class="review-txtbox">
+                            <input name="email" required [(ngModel)]="enquiryData.email"
+                              (keyup)="submitEnquiry(enquiryData,$event)" type="text">
+                          </div>
+                          <span class="error-message" *ngIf="emailValidate">Email is not valid</span>
+                        </li>
+                        <li>
+                          <label>
+                            Phone
+                            <span>*</span>
+                          </label>
+                          <div class="review-txtbox">
+                            <input name="phone" maxlength="10" (keypress)="onlyNumbers($event)" required
+                              [(ngModel)]="enquiryData.phone" type="text">
+                          </div>
+
+                        </li>
+                        <li>
+                          <label>
+                            Subject
+                            <span>*</span>
+                          </label>
+                          <div class="review-txtbox">
+                            <input name="subject" required [(ngModel)]="enquiryData.subject" type="text">
+                          </div>
+
+                        </li>
+                        <li>
+
+                          <label>
+                            Your Message
+                            <span>*</span>
+                          </label>
+                          <div class="review-txtbox">
+                            <textarea required name="review" [(ngModel)]="enquiryData.message" class="textarea">
+                            </textarea>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="submit-review">
+                            <button type="submit" class="btn" [disabled]="!enquiry.form.valid">Submit</button>
+                          </div>
+                        </li>
+                      </ul>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs-content review-tab-content" [ngClass]="{'active': tabsIndex == 2}">
+              <form (ngSubmit)="submitRating(reviewData,$event)" #review="ngForm">
+                <div class="row">
+                  <div class="col-md-8">
+                    <ul class="review-forms">
+                      <li>
+                        <div class="star-rating">
+                          Rate Product:
+                          <ngx-stars [maxStars]="5" animation=true [color]="'#ffca00'"
+                            (ratingOutput)="changeRating($event)"></ngx-stars>
+                        </div>
+                      </li>
+                      <li>
+                        <label>
+                          Your review
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <textarea required name="review" [(ngModel)]="reviewData.review" class="textarea">
+                          </textarea>
+                        </div>
+                      </li>
+                      <li>
+                        <label>
+                          Name
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="name" required [(ngModel)]="reviewData.name" type="text">
+                        </div>
+                      </li>
+                      <li>
+                        <label>
+                          Email
+                          <span>*</span>
+                        </label>
+                        <div class="review-txtbox">
+                          <input name="email" required [(ngModel)]="reviewData.email"
+                            (keyup)="submitRating(reviewData,$event)" type="text">
+                        </div>
+                        <span class="error-message" *ngIf="emailValidate">Email is not valid</span>
+                      </li>
+                      <li>
+                        <div class="submit-review">
+                          <button type="submit" class="btn" [disabled]="!review.form.valid">Submit</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="star">
+                      <ul class="review-forms">
+
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            Average Rating for product:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=averageRating>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            Customer Reviews:
+                            <br> 5 Star:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=fiveStars>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            4 Star:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=fourStars>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            3 Star:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=threeStars>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            2 Star:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=twoStars>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                        <li *ngIf="averageRating > 0">
+                          <div class="star-rating">
+                            1 Star:
+                            <ngx-stars readonly=true [maxStars]="5" [color]="'#ffca00'" [initialStars]=oneStar>
+                            </ngx-stars>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="scroll" *ngIf="productDetailsData && productDetailsData.reviews.length > 0">
+                <div *ngFor="let data of productDetailsData.reviews" class="row show-reviews ">
+                  <div class="col-12 col-sm-3 col-md-3 col-lg-3 reviews-img">
+                    <div class="from-review">
+                      <img src="https://avatars.servers.getgo.com/2205256774854474505_medium.jpg">
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-8 col-md-8 col-lg-8 review-txt">
+                    <h5 class="name">{{data.name}} ({{data.email}})</h5>
+                    <p class="comment">{{data.comments}}</p>
+                    <p class="rating">Rating: {{data.rating}}</p>
+                  </div>
+                  <!-- <div class="col-2 reply-btn">
+      
+                        <button class="btn">Reply</button>
+                      </div> -->
+                  <div class="review-date">
+                    <p>{{data.date | date:'dd-MMM-yyyy | h:mm a'}}</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="productDetailsData&&productDetailsData.realated_product.length>0"
+      class="col-12 page-section related-product-section">
+      <div class="row section-row">
+        <div class="col-lg-12 related-product-wrapper">
+          <div class="section-heading">
+            <h3 class="title">Related products</h3>
+          </div>
+          <div class="row">
+            <div *ngFor="let data of productDetailsData.realated_product"
+              class="col-12 col-sm-6 col-md-4 col-lg-3 p-wrapper">
+              <div class="p-container">
+                <div class="p-img product-img" (click)="getDetail(data)">
+                  <img [src]="imageServer+data.image_name">
+                </div>
+                <!-- <h3> {{data.name}} </h3> -->
+                <div class="notify-icons">
+                  <span class="icon-wishlist">
+                    <i class="fa fa-heart"></i>
+                  </span>
+                </div>
+                <div class="p-backside">
+
+                  <div class="icon-container">
+                    <span class="icon-view">
+                      <i class="fa fa-eye"></i>
+                    </span>
+
+                    <span class="icon-cart">
+                      <i class="fa fa-shopping-cart"></i>
+                    </span>
+                    <span class="icon-wishlist">
+                      <i class="fa fa-heart"></i>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="box-wraper">
+                <p>Medium M - 108mm Size 3D Shree Yantra in Single Piece Construction (Akhand)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

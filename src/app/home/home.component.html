@@ -1,0 +1,148 @@
+<app-swiper class="swiper"></app-swiper>
+<div class="container-fluid home-page">
+  <div class="row">
+    <div class="col-lg-12 page-section section-heading">
+      <div class="container section-heading-wrapper">
+        <h2 class="title" *ngIf="language == 'En'">FEATURED PRODUCTS</h2>
+        <h2 class="title" *ngIf="language == 'Hi'">विशेष रुप से प्रदर्शित प्रोडक्टस</h2>
+        <span class="sub-title" *ngIf="language == 'En'">DIRECTLY FROM PRODUCER TO BUYER</span>
+        <span class="sub-title" *ngIf="language == 'Hi'">खरीदार से सीधे उत्पादन</span>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section feature-product-section">
+      <div class="container section-container">
+        <div class="row" *ngIf="homeData && homeData.category">
+          <div *ngFor="let data of homeData.category | orderBy:'order' | slice:0:8"
+            (click)="goToListing(data.name_english)" class="col-lg-4 col-md-6 col-sm-6 col-12 p-wrapper">
+            <div class="p-conatiner">
+              <div class="p-img">
+                <img class="img-fluid" src="{{imageServer}}{{data.image_name}}" />
+              </div>
+              <div class="p-title">
+                <h3>{{data.name}}</h3>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="homeData && homeData.category && homeData.category.length>8">
+            <button class="btn " type="submit" *ngIf="language == 'En'">Show All</button>
+            <button class="btn " type="submit" *ngIf="language == 'Hi'">सब दिखाओ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section section-blockquote">
+      <div class="container section-heading-wrapper">
+        <h4 class="blockquote-text">Scientific studies prove that seven Energy Chakras & Aura of a person materially
+          improves with M-108mm and above
+          sizes of 3D Shree Yantra only. Small size is not effective in this context.</h4>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section p-intro-section">
+      <div class="container section-container">
+        <div class="row">
+          <div class="col-lg-12 p-intro-wrapper" *ngIf="homeData">
+            <div class="row p-intro-wrapper-row">
+              <div class="col-lg-4 p-intro-container" *ngFor="let data of homeData.introduction">
+                <div class="p-intro-wrapper">
+                  <div class="heading-wrapper">
+                    <h3 class="heading">{{data.name | titlecase }}</h3>
+                  </div>
+                  <div class="intro-img-wrapper">
+                    <img class="img-fluid" src="{{data.image_name}}">
+                  </div>
+                  <div class="intro-text-wrapper">
+                    <p class="description" innerHtml="{{data.description.slice(0, 180)}} ..."></p>
+                    <a class="btn-read-more" (click)="goToContent(data.title_english)" *ngIf="language == 'En'">Read
+                      More
+                    </a>
+                    <a class="btn-read-more" (click)="goToContent(data.title_english)" *ngIf="language == 'Hi'">विस्तार
+                      से पढ़ें</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section reviews-section">
+      <div class="container section-container">
+        <div class="row">
+          <div class="col-lg-6 faqs-container">
+            <div class="faqs-wrapper">
+              <div class="heading-wrapper">
+                <h3 class="heading">FAQ'S</h3>
+              </div>
+              <div class="accordions-wrapper">
+                <div class="accordion" *ngFor="let faqs of faqData|slice:0:4; let i=index" [ngClass]="i==0?'active':''"
+                  (click)="setAccordion(i)">
+                  <div class="title">
+                    <h5 class="label">{{faqs.question}}</h5>
+                  </div>
+                  <div class="content">
+                    <p>{{faqs.answer}}</p>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 reviews-container">
+            <div class="reviews-wrapper">
+              <div class="heading-wrapper">
+                <h3 class="heading">Reviews</h3>
+              </div>
+              <div class="swiper-container" *ngIf="homeData && homeData.reviews" [swiper]="configReview">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" *ngFor="let data of homeData.reviews" data-swiper-autoplay="4000">
+                    <p class="review-icon">
+                      <i class="fa fa-quote-left" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-text">
+                      <span>{{data.comments}}</span>
+                      <span class="review-name">{{data.name}}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section section-heading">
+      <div class="container section-heading-wrapper">
+        <h2 class="title" *ngIf="language == 'En'">Recent Post</h2>
+        <h2 class="title" *ngIf="language == 'Hi'">हाल की पोस्ट</h2>
+        <span class="sub-title" *ngIf="language == 'En'">Shreeyantra Articles</span>
+        <span class="sub-title" *ngIf="language == 'Hi'">श्रीयंत्र लेख</span>
+      </div>
+    </div>
+    <div class="col-lg-12 page-section recent-post-section">
+      <article class="container section-container recent-posts">
+        <div class="row">
+          <div *ngFor="let data of homeData && homeData.posts" class="col-lg-4 post-wrapper">
+            <div class="post-container">
+              <div class="post-img">
+                <img class="img-fluid" src="{{imageServer}}{{data.image_name}}">
+              </div>
+              <div class="post-content">
+                <h3 class="heading">{{data.title | titlecase}}</h3>
+                <p class="post-date">{{data.date | date:'dd-MMM-yyyy | h:mm a'}}</p>
+                <p class="description" innerHtml="{{data.description.slice(0, 180)}} ... "></p>
+                <a class="btn-read-more" [routerLink]="['/blogdetails',data.id, data.title_english]"
+                  *ngIf="language == 'En'">Read More
+                </a>
+                <a class="btn-read-more" [routerLink]="['/blogdetails',data.id, data.title_english]"
+                  *ngIf="language == 'Hi'">
+                  विस्तार से पढ़ें</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

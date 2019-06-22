@@ -1,0 +1,82 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">{{params.name}}</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <!-- <li class="list">
+              <a>
+                <span>Listing</span>
+              </a>
+            </li> -->
+            <li class="list">
+              <a>
+                <span>{{params.name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container listing-page">
+  <div class="row page-row">
+    <div class="col-12 page-section">
+      <div class="row section-row">
+        <!-- <div class="col-3 p-sidebar-wrapper">
+          <div class="p-sidebar-container"></div>
+        </div> -->
+        <div class="col-lg-12 col-md-12 col-sm-12 p-list-wrapper">
+          <div class="row p-list-row" *ngIf="listingData && listingData.length >0">
+            <div class="col-lg-4 col-md-4 col-sm-12 p-wrapper" *ngFor="let data of listingData">
+              <div class="p-container">
+                <div class="image-container" (click)="goToDetails(data)">
+                  <img class="img-fluid" [src]="imageServer+data.image_name" />
+                </div>
+                <div class="desc-container">
+                  <p class="stock-status">
+                    <span class="stock-tag">
+                      <em>{{data.stock}}</em>In Stock</span>
+                    <!-- <span class="stock-tag stock-out">Out of Stock</span> -->
+                  </p>
+                  <p class="desc">{{data.product_name}}</p>
+                  <p class="price-tag">
+                    <span class="label">Price:</span>
+                    <del class="price" *ngIf="data.discount != 0">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{data.price}}</del>
+                    <span class="price">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{data.final_price}}</span>
+                  </p>
+                  <p class="price-tag discount-price" *ngIf="data.wholesale_price">
+                    <span class="label">Wholesale Price:</span>
+                    <span class="price">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{data.wholesale_price}}</span>
+                  </p>
+                  <div class="buttons-wrapper">
+                    <button class="btn btn-cart" (click)="checkCartProduct(data)">Add To Cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+        <div *ngIf="listingData && listingData.length == 0">
+          Data Not Found
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

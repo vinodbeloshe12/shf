@@ -1,0 +1,135 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title" *ngIf="blogData">{{blogData.title}}</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list" routerLink="/blog">
+              <a>
+                <span>Blog</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>Blog Details</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container">
+  <!--  <div class="row page-row">
+    <div class="col-lg-12 col-md-12 blog-details mb-3">
+      <h1>Simple Ways to Bring Positivity and Prosperity in Your Life</h1>
+      <span class="blog-info">25-Mar-2019 | 6:18 AM</span>
+    </div>
+    <div class="col-lg-12 col-md-12 blog-swiper-container">
+      <div class="swiper-container" [swiper]="configBlog" [(index)]="index">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img class="img-fluid" src="../assets/images/slide1.jpg" />
+          </div>
+        </div>
+         <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 blog-details">
+
+      <p class="text-justify mb-4">Do you want to be more positive in life? Do you ever feel frustrated looking at the negativity all around or because
+        of the negativity of your thoughts? Well, possibly all of us have been through it. But the good news is that changing
+        that is all in your hands. You can change your thoughts, emotions, actions, and, therefore, your life. You only need
+        to start with deciding that you want to be healthier and happier – that’s the first step. As Robin Sharma says “All
+        change is hard at first, messy in the middle and gorgeous at the end.” So just stick with your resolution and follow
+        these simple techniques to supercharge your life with positivity –</p>
+      <h2>1. Think Positive </h2>
+      <p class="text-justify mb-4">“A man is but the product of his thoughts what he thinks, he becomes.”– Mahatma Gandhi This is the first and probably
+        a very hard step to take at first. We are not conditioned to look at positive things. We tend to blame outside forces
+        like experiences, friends, parents, relationships etc. for the negativity in our life. However, one needs to understand
+        and remember that positivity is a choice. You need to teach yourself to think positive – no matter how bad the situation
+        is. Eventually, you will stop pointing fingers at others or blame others for anything that happens to you or with
+        your life. Train yourself to look at positives in life and look at the positive things in every situation. This will
+        make you feel that you are in control of your life People have experienced more positivity in their life when they
+        look at Swarna Shree Yantra with unconditional love and devotion, imagine their wishes being fulfilled, and feel
+        thankful to Shree Yantra for helping you achieve your wish.</p>
+      <h2>2. Meditate </h2>
+      <p class="text-justify mb-4">“Meditation puts you on the fast track to being happy,” says Ronnie Newman, Director of Research and Health Promotion
+        for the Art of Living Foundation. Thousands of research and studies are being conducted every day on benefits of
+        meditation and the results are simply amazing. Emotional well-being, healthier body, mindfulness, decreased levels
+        of depression, stress and anxiety, improved focus and attention are just some of the many benefits of meditation.
+        Shree Yantra is an ancient tool used by several great gurus and Vedic scientists over centuries to meditate and achieve
+        spiritual growth. For thousands of years, many people in the world have used the power of symbols to empower, inspire
+        and influence several people. Scientifically, particular geometric symbols have the power to alter our brainwaves
+        which activate our deepest inner potential. The Shree Yantra is one such symbol that has a great effect on human
+        mind, body and spirit. A research at Moscow University in 1984 found that merely by seeing the Shree Yantra, people
+        started healing their minds.
+      </p>
+      <h2>3. Declutter your House </h2>
+      <p class="text-justify mb-4">“Have nothing in your house that you do not know to be useful, or believe to be beautiful.” -William Morris The easiest
+        way to declutter your house is to have ‘six month no use’ rule. If there is something in your house which you have
+        not used for six months, it is the clutter which you need to get rid of. It clearly means that you don’t need it,
+        it does not make you feel better and it does not make you look better. Things like unused clothes, home items or
+        food items come in this category. Things accumulated over time can drain us our energy – both physically and emotionally.
+        The physical decluttering helps in psychologically freeing yourself and engaging yourself in positivity. People who
+        have placed Shree Yantra in their houses have experienced positive energies in their house. It takes away the negative
+        energy of the place and continuously energizes it with divine energy and opens new fronts to gain wealth.</p>
+      <h2>4. Get Positive Elements</h2>
+      <p class="text-justify mb-4"> The maintenance of positive energy around you gives you a feeling of contentment. Positively charged and energized
+        physical elements have the power to release positive energies and thus, creating a more energized atmosphere. At
+        a very basic level, fresh flowers, mild fragrances, soothing colors make you feel nice. Shree Yantra is one such
+        complex structure which attracts cosmic energy in multi-fold. As per researches of Dr. Patrick Flanagan, USA – energy
+        level of a Shree Yantra having accurate geometry is 70 times more than equivalent Pyramidal structure. Placing a
+        Shree Yantra in your house or area of businesses energizes the place and helps in bringing peace, harmony, happiness,
+        and wealth. Take the first step towards your journey of positivity. Check out the Swarna Shree Yantra, arguably World’s
+        only perfect Shree Yantra.
+      </p>
+    </div>
+  </div> -->
+
+  <div class="row page-row">
+    <div class="col-lg-12 col-md-12 blog-details mb-3">
+      <h1>{{blogData.title}}</h1>
+      <span class="blog-info">{{blogData.date| date:'dd-MMM-yyyy | h:mm a' }}</span>
+    </div>
+    <!-- <div class="blog-img-block">
+      <img src="{{blogData.image_name}}">
+    </div> -->
+    <div class="blog-details">
+      <P [innerHtml]="applyCss(blogData.description)"> </P>
+
+
+    </div>
+  </div>
+
+  <!-- <div class="blog-details">
+    <h2>Reviews</h2>
+  </div>
+  <div class="scroll ">
+    <div class="row show-reviews">
+        <div class="col-1 reviews-img">
+            <div  class="from-review">
+                <img  src="https://avatars.servers.getgo.com/2205256774854474505_medium.jpg">
+            </div>
+        </div>
+        <div  class="col-9 review-txt">
+            <h5 class="name">shweta (honeymahadik143@gmail.com)</h5>
+            <p  class="comment">hie</p>
+            <p class="rating">Rating: 1</p>
+        </div>
+        <div  class="review-date">
+            <p >18-Mar-2019 | 2:55 PM</p>
+        </div>
+    </div>
+   
+  </div> -->
+</div>

@@ -1,0 +1,202 @@
+<!-- <form #frm="ngForm" (ngSubmit)="login(userData)" class="loginCont">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="text" name="username" [(ngModel)]="userData.username" required class="form-control" id="exampleInputEmail1"
+      aria-describedby="emailHelp" placeholder="Username">
+
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name="password" required [(ngModel)]="userData.password" class="form-control" id="exampleInputPassword1"
+      placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form> 
+<!-- <div class="container page-container listing-page">
+  <form #frm="ngForm" (ngSubmit)="login(userData)" class="loginCont border-container rounded">
+    <div class="row">
+      <div class="col-12">
+        <img src="../assets\images\mg1.png" class="w-25  mx-auto d-block">
+      </div>
+      <div class="col-12">
+        <div class="section-heading">
+          <h3 class="title mb-4 mt-3">LOGIN HERE</h3>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <div class="input">
+            <input class=" rounded" type="email" [(ngModel)]="userData.username" required placeholder="Email" name="email" required />
+            <span class="fa fa-envelope"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <div class="input">
+            <input class=" rounded" type="password" placeholder="Password" required [(ngModel)]="userData.password" name="password" required
+            />
+            <span class="fa fa-unlock"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6 checkbox-container">
+        <div class="boxes">
+          <input type="checkbox" id="box-1">
+          <label for="box-1">Remember me</label>
+        </div>
+      </div>
+      <div class="col-md-6 checkbox-container">
+        <div class="checkbox-wrapper">
+          <label class="checkbox-label rounded ">
+            <a href="" class="lable-color">Forgot Password ?</a>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label class="switch mt-4">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="col-md-10 mt-4">
+        <label class="checkbox-label rounded ">
+          <a href="" class="lable-color">Keep Me Signed In</a>
+        </label>
+      </div>
+
+    </div>
+    <div class="mt-2 ">
+      <input class="bg rounded" type="submit" value="Login">
+    </div>
+  </form>
+
+</div> -->
+
+<section class="user">
+  <div class="user_options-container">
+    <div class="user_options-text">
+      <div class="user_options-registered">
+        <h2 class="user_registered-title" *ngIf="language == 'En'">Have an account?</h2>
+        <h2 class="user_registered-title" *ngIf="language == 'Hi'">
+          क्या आपका अकाउंट है?</h2>
+        <button class="user_registered-login" id="login-button" (click)="toggleClick('Login')"
+          *ngIf="language == 'En'">Login</button>
+        <button class="user_registered-login" id="login-button" (click)="toggleClick('Login')" *ngIf="language == 'Hi'">
+          लॉग इन करें</button>
+      </div>
+      <div class="user_options-unregistered">
+        <h2 class="user_unregistered-title" *ngIf="language == 'En'">Don't have an account?</h2>
+        <h2 class="user_unregistered-title" *ngIf="language == 'Hi'">
+          अकाउंट नहीं है?</h2>
+        <button class="user_unregistered-signup" id="signup-button" (click)="toggleClick('Signup')"
+          *ngIf="language == 'En'">Sign up</button>
+        <button class="user_unregistered-signup" id="signup-button" (click)="toggleClick('Signup')"
+          *ngIf="language == 'Hi'">
+          साइन अप करें</button>
+      </div>
+    </div>
+
+    <!-- <div class="user_options-forms" id="user_options-forms" [ngClass]="toggleButton?'active-login':'active-signup'"> -->
+    <div class="user_options-forms" id="user_options-forms" [ngClass]="toggleButton?'bounceRight':'bounceLeft'">
+      <!-- *ngIf="sectionVisible=='Signup'" -->
+      <div class="user_forms-login box" [ngClass]="sectionVisible=='Signup'?'active':''">
+        <h2 class="forms_title" *ngIf="language == 'En'">Sign up</h2>
+        <h2 class="forms_title" *ngIf="language == 'Hi'">साइन अप करें</h2>
+        <form class="forms_form" #frm="ngForm" (ngSubmit)="signUp()">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="text" (keyup)="validateSignUp('Required','')" [(ngModel)]="signUpUserData.firstname"
+                name="signupfirstname" placeholder="First Name" class="forms_field-input" required />
+              <span *ngIf="firstNameInvalid">* {{errorMessage}}</span>
+            </div>
+            <div class="forms_field">
+              <input type="text" (keyup)="validateSignUp('Required','')" [(ngModel)]="signUpUserData.lastname"
+                name="signuplastname" placeholder="Last Name" class="forms_field-input" required />
+              <span *ngIf="lastNameInvalid">* {{errorMessage}}</span>
+            </div>
+            <div class="forms_field">
+              <input type="email" (keyup)="validateSignUp('Required','')" [(ngModel)]="signUpUserData.email"
+                name="signupemail" placeholder="Email" class="forms_field-input" required />
+              <span *ngIf="emailInvalid">* {{errorMessage}}</span>
+            </div>
+            <div class="forms_field">
+              <input type="text" (keyup)="validateSignUp('Required','')" [(ngModel)]="signUpUserData.username"
+                name="signupusername" placeholder="Username" class="forms_field-input" required />
+              <span *ngIf="userNameInvalid">* {{errorMessage}}</span>
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Sign up" *ngIf="language == 'En'" class="forms_buttons-action">
+            <input type="submit" value="साइन अप करें" *ngIf="language == 'Hi'" class="forms_buttons-action">
+          </div>
+          <!-- <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="email" placeholder="Email" [(ngModel)]="userData.username" required placeholder="Email" name="email" class="forms_field-input"
+                required autofocus />
+            </div>
+            <div class="forms_field">
+              <input type="password" placeholder="Password" required [(ngModel)]="userData.password" name="password" class="forms_field-input"
+              />
+            </div>
+            <div class="forms_field">
+              <label>
+                <a href="" class="lable-color">Forgot Password ?</a>
+              </label>
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Log In" class="forms_buttons-action">
+          </div> -->
+        </form>
+      </div>
+      <!-- *ngIf="sectionVisible=='Login'" -->
+      <div class="user_forms-signup box" [ngClass]="sectionVisible=='Login'?'active':''">
+        <h2 class="forms_title" *ngIf="language == 'En'">Login</h2>
+        <h2 class="forms_title" *ngIf="language == 'Hi'">लॉग इन करें</h2>
+        <form class="forms_form" (ngSubmit)="login(userData)">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="email" placeholder="Email" [(ngModel)]="userData.username" required placeholder="Email"
+                name="email" class="forms_field-input" required autofocus />
+            </div>
+            <div class="forms_field">
+              <input type="password" placeholder="Password" required [(ngModel)]="userData.password" name="password"
+                class="forms_field-input" />
+            </div>
+            <div class="forms_field">
+              <label>
+                <a href="" class="lable-color" *ngIf="language == 'En'">Forgot Password ?</a>
+                <a href="" class="lable-color" *ngIf="language == 'Hi'">
+                  पासवर्ड भूल गए?</a>
+              </label>
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Log In" *ngIf="language == 'En'" class="forms_buttons-action">
+            <input type="submit" value="लॉग इन करें" *ngIf="language == 'Hi'" class="forms_buttons-action">
+          </div>
+          <!-- <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="text" placeholder="Full Name" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input type="email" placeholder="Email" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input type="password" placeholder="Password" class="forms_field-input" required />
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Sign up" class="forms_buttons-action">
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

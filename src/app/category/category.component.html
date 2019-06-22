@@ -1,0 +1,164 @@
+<div class="container page-container categories-page">
+  <div class="row page-row">
+    <!-- page title -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container page-title-container">
+      <div class="page-title-wrapper">
+        <h3 class="title">Category</h3>
+        <ul class="controll-buttons">
+          <li>
+            <button class="btn btn-add-new" pbutton="" type="button" (click)="addCategory()">
+              <span class="icon">
+                <i class="fa" [ngClass]="showCategoryForm ? 'fa-minus-circle':'fa-plus-circle'"></i>
+              </span>
+              <span class="label"> {{showCategoryForm ? "Close":"Add"}}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- categories table -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container table-container" *ngIf="!showCategoryForm">
+      <div class="table-wrapper">
+        <p-dataTable #dataTable selectionMode="single" [responsive]="true" [globalFilter]="gb1"
+          [value]="categoriesTableData" [(selection)]="selectedRow" [rows]="5" [paginator]="true" [pageLinks]="3">
+          <div class="locationId">
+            <p-column sortable="true" field="id" header="ID"></p-column>
+          </div>
+          <div class="businessName">
+            <p-column sortable="true" field="name_english" header="Name in English"></p-column>
+          </div>
+          <div class="Address1">
+            <p-column sortable="true" field="name_hindi" header="Name in Hindi"></p-column>
+          </div>
+          <div class="CountryName">
+            <p-column sortable="true" field="order" header="Order Of Category"></p-column>
+          </div>
+          <div class="Locale">
+            <p-column sortable="true" field="status" header="Status"></p-column>
+          </div>
+          <div class="action">
+            <p-column field="action" header="Action">
+              <ng-template let-uData="rowData" pTemplate="body">
+                <button type="button" class="btn i-btn" pButton (click)="editCategory(uData)">
+                  <span class="icon">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <button type="button" class="btn i-btn" pButton (click)="deleteCategory(uData)">
+                  <span class="icon">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </ng-template>
+            </p-column>
+          </div>
+        </p-dataTable>
+      </div>
+    </div>
+
+    <!-- categories form -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container forms-container">
+      <div class="forms-wrapper">
+        <form method="post" [ngStyle]="showCategoryForm== true ? {display: 'block'}: {display:'none'}"
+          enctype="multipart/form-data" #categoryForm="ngForm" (ngSubmit)="submitCategory(categoryData)">
+          <div class="border-container">
+            <div class="form-title">
+              <p class="title">Add New Category</p>
+            </div>
+            <div class="form-content" style="padding:30px">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Category Name</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input placeholder="English" type="text" autocomplete="off" class="inputbox" name="nameEnglish"
+                        required [(ngModel)]="categoryData.nameEnglish" />
+                    </div>
+                    <div class="inputbox-container">
+                      <input placeholder="Hindi" required autocomplete="off" type="text" class="inputbox"
+                        name="nameHindi" [(ngModel)]="categoryData.nameHindi" />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Upload Image</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input type="file" class="form-control-file" (change)="onFileChange($event)"
+                        [(ngModel)]="imageName" name="image">
+                      <!-- <span *ngIf="imageName">{{imageName}}</span> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Previous Selected Image</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <ul class="row no-gutters upload-image-list">
+                        <li class="col-2">
+                          <img class="img-fluid" [src]="imageServer+categoryData.image">
+                          <span class="delete" (click)="deletePreviousImage(categoryData.id)"></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Order</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input autocomplete="off" type="text" class="inputbox" required name="order"
+                        [(ngModel)]="categoryData.order" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Status</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <select required name="status" [(ngModel)]="categoryData.status">
+                        <option value="1">Enable</option>
+                        <option value="0">Disable</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Date</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input type="text" class="inputbox" name="date" [(ngModel)]="categoryData.date" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <button class="btn" [disabled]="!categoryForm.form.valid" type="submit">submit</button>
+                <button class="btn " (click)="clearData()" type="button">Clear</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,249 @@
+<!-- <div class="container page-container cart-page">
+  <div class="row page-row">
+    <div class="col-12 section">
+      <div class="row section-row">
+        <div class="col-9 cart-container">
+          <div class="cart-wrapper">
+            
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container page-container containerCart cart-page">
+  <div class="row cart-page-row">
+    <!-- <div class="col-lg-12 shopping-location-wrapper">
+      <div class="ShippingLoc">
+        <div class="shipping-details">
+          <ul class="shippingHead">
+            <li class="row">
+              <div class="col-12">
+                <div class="row moreOptionExpand" [ngClass]="showOptionSearch?'ExpandBox':''">
+                  <div class="col col-sm-6 cust-txt-boxes">
+                    <label>Customer Name:</label>
+                    <input type="text">
+                  </div>
+                  <div class="col col-sm-6 cust-txt-boxes">
+                    <label>Associate Name:</label>
+                    <input type="text">
+                  </div>
+                  <div class="col col-sm-6 cust-txt-boxes">
+                    <label>Associate #:</label>
+                    <input type="text">
+                  </div>
+                  <div class="col col-sm-6 cust-txt-boxes">
+                    <label>Special Order #:</label>
+                    <input type="text">
+                  </div>
+                  <button class="btn updateBtn">Update</button>
+                </div>
+              </div>
+              <div class="col-12 shopLocTit">
+                <span class="ship-loc-title">Shipping Location:</span>
+                <button class="MoreOptionsBtn" (click)="showMoreOption()" [ngClass]="showOptionSearch?'minusLess':''">{{showButton}}</button>
+                <div class="selectLocList" (click)="shiplocation=!shiplocation">
+                  <label for="">ass</label>
+                  <span class="SearchIcon " [ngClass]="{'searchHide': shiplocation }">
+                    <input type="text" class="filterSearch" placeholder="Search">
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-12 float-left filterLocations mainOrderDetails" [ngClass]="{'showLocShip': shiplocation }">
+          <p-dataTable #dataTable selectionMode="single" [responsive]="true">
+            <div class="locationId">
+              <p-column sortable="true" field="locationId" header="LocationId"></p-column>
+            </div>
+            <div class="businessName">
+              <p-column sortable="true" field="businessName" header="Business Name"></p-column>
+            </div>
+            <div class="Address1">
+              <p-column sortable="true" field="address1" header="Address"></p-column>
+            </div>
+            <div class="CountryName">
+              <p-column sortable="true" field="countryName" header="Country Name"></p-column>
+            </div>
+            <div class="Locale">
+              <p-column sortable="true" field="locale" header="Locale"></p-column>
+            </div>
+            <div class="postalCode">
+              <p-column sortable="true" field="postalCode" header="Postal Code"></p-column>
+            </div>
+            <div class="businessPhoneNumber">
+              <p-column sortable="true" field="businessPhoneNumber" header="Business Phone Number"></p-column>
+            </div>
+
+          </p-dataTable>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 cart-details-wrapper">
+      <div class="cart-details-container">
+        <div class="row cart-items-row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-9 cart-table-wrapper">
+            <div class="cart-table-container">
+              <ul class="cart-table">
+                <li class="heading">
+                  <div class="row">
+                    <div class="col-6">
+                      <span>Item</span>
+                    </div>
+                    <!-- <div class="col-2">
+                      <span>Size</span>
+                    </div> -->
+                    <div class="col-2">
+                      <span>Qty</span>
+                    </div>
+                    <div class="col-2">
+                      <span>Price</span>
+                    </div>
+                    <div class="col-2">
+                      <span>Total</span>
+                    </div>
+                  </div>
+                </li>
+                <ng-container *ngIf="cartData && cartData.length>0">
+                  <li class="cartData" *ngFor="let cart of cartData;let i=index;">
+                    <div class="row">
+                      <div class="col-6 size">
+                        <div class="cart-img-box">
+                          <div class="cartImg">
+                            <img [src]="imageServer+cart.image_name">
+                          </div>
+                          <div class="cartName">
+                            <h4>{{cart.name}}</h4>
+                            <span></span>
+                            <span class="remove-block">
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="col-2 price">
+                        <span class="price-amt">
+                          <select>
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </span>
+                      </div> -->
+                      <div class="col-2 Qty">
+                        <div class="quentity">
+                          <input type="number" [(ngModel)]="cart.quantity" (ngModelChange)="updateCartData(cart,i)"
+                            min="1" max="cart.stock">
+                        </div>
+                      </div>
+                      <div class="col-2 price">
+                        <span class="price-amt" [ngClass]="cart.wholesaleStatus == '1'?'wholesale-price':''">
+                          <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                          {{cart.price}}
+                        </span>
+                      </div>
+                      <div class="col-2 cost">
+                        <span class="cost-amt" [ngClass]="cart.wholesaleStatus == '1'?'wholesale-price':''">
+                          <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                          {{(cart.quantity) * (cart.price)}}
+                        </span>
+                        <span class="delete-icon" (click)="removeFromCart(cart)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <!-- <div class="cartNotice">
+                        <span class="warning-icon">
+                          <i class="fa fa-warning"></i>
+                        </span>
+                        <span class="warning-text">sasaa</span>
+                        <button class="btn">Agree</button>
+                      </div> -->
+                    </div>
+                    <div class="wholesale-notice" *ngIf="cart.wholesaleStatus == '1'">
+                      Note: * The price of the product is the wholesale price.
+                    </div>
+                  </li>
+                </ng-container>
+                <div class="no-product" *ngIf="cartData && cartData.length==0">
+                  <h3>THERE ARE NO ITEMS IN YOUR CART.</h3>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3 shipping-details-wrapper">
+            <div class="shipping-details-container">
+              <!-- <div class="row quick-add-container">
+                <div class="col-12 quick-add quick-add-label">
+                  <label for="text">Quick Add:</label>
+                </div>
+                <div class="col-5 quick-add quick-add-style">
+                  <input class="input-style" type="text" placeholder="Style Number">
+                </div>
+                <div class="col-3 quick-add quick-add-quantity">
+                  <input class="input-quantity" type="text" placeholder="Qty">
+                </div>
+                <div class="col-4 quick-add quick-add-button">
+                  <button class="btn-add btn">
+                    <span>
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                    Add
+                  </button>
+                </div>
+              </div> -->
+              <div class="shipping-options">
+                <h4 class=title>Cart Summary</h4>
+                <!-- <div class="dropdown-container">
+                  <label class="opt-label" for="text">Shipping Method:</label>
+                  <p-dropdown class="dropdown-cart"></p-dropdown>
+                </div>
+                <div class="dropdown-container">
+                  <label class="opt-label" for="text">Payment Method:
+                    <p class="manage-shopping-cards">
+                      <span>Manage Card</span>
+                      <i class="fa fa-usd"></i>
+                    </p>
+                  </label>
+                  <p-dropdown class="dropdown-cart"></p-dropdown>
+                </div> 
+                <div class="dropdown-container">
+                  <label class="opt-label" for="text">Packaging Option:</label>
+                  <p-dropdown class="dropdown-cart"></p-dropdown>
+                </div> -->
+                <div class="total-orders">
+                  <p>
+                    <span>Cart Quantity: </span>
+                    <span>{{TotalItemsInCart}}</span>
+                  </p>
+                  <!-- <p>
+                    <span>Freight: </span>
+                    <span>asas</span>
+                  </p> -->
+                  <p>
+                    <strong>
+                      <span>Order Total: </span>
+                      <span>
+                        <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                        {{orderTotal ? orderTotal : 0}}</span>
+                    </strong>
+                  </p>
+                  <!-- <button class="fix-btn errfix">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <span>Fix Cart Issues</span>
+                  </button> -->
+                  <button *ngIf="cartData && cartData.length>0" routerLink="/checkout" class="btn submit-btn">
+                    <span>
+                      <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    </span>
+                    Checkout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

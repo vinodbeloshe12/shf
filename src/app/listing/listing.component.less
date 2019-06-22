@@ -1,0 +1,263 @@
+/** You can add header styles to this file, and also import other style files **/
+@import url('../../assets/css/theme.less');
+
+.p-list-wrapper {
+  .p-wrapper {
+    margin-bottom: 30px;
+
+    .p-container {
+      border: 2px solid @border-color;
+      background-color: @white;
+      height: 100%;
+      cursor: pointer;
+      transition: 0.5s all;
+
+
+      .image-container {
+        padding: 10px 10px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 250px;
+
+        img {
+          transition: 0.5s all;
+          max-height: 100%;
+          margin: 0 auto;
+        }
+
+        .p-backside {
+          position: absolute;
+          width: 100%;
+          bottom: 100%;
+          left: 0;
+          padding: 10px 0px;
+          background: rgba(103, 103, 103, 0.15);
+          text-align: center;
+          transition: 0.5s all;
+          box-shadow: 0px 0px 2px 0px #ccc;
+          opacity: 0;
+
+          a {
+            &.ibtn {
+              margin: 0px 7px;
+              width: 30px;
+              height: 30px;
+              line-height: 29px;
+              text-align: center;
+              display: inline-block;
+              border-radius: 100px;
+              text-decoration: none;
+              background: @white;
+              color: @hover;
+              border: 1px solid @hover;
+              transition: 0.5s all;
+              opacity: 0;
+
+              i {
+                transition: 0.5s all;
+              }
+
+              &:hover {
+                i {
+                  transform: rotateY(180deg);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .desc-container {
+        padding: 15px 15px;
+        text-align: center;
+
+        .stock-status {
+          text-align: center;
+          margin-bottom: 15px;
+
+          .stock-tag {
+            color: @white;
+            background-color: @secondary;
+            // border: 1px solid @secondary-border;
+            padding: 3px 10px;
+            display: inline-block;
+            border-radius: 20px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+
+            &.stock-out {
+              background-color: @primary-lighten;
+              color: @primary;
+              border-color: @primary;
+            }
+
+            em {
+              margin-right: 5px;
+            }
+          }
+        }
+
+        .desc {
+          margin-bottom: 15px;
+          height: 70px;
+          align-items: center;
+          justify-content: center;
+          line-height: 20px;
+          display: flex;
+        }
+
+        .price-tag {
+          color: @primary;
+          margin-bottom: 10px;
+          font-family: @body-font;
+
+          .label {
+            margin-right: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
+          }
+
+          del {
+            margin-right: 5px;
+          }
+
+          &.discount-price {
+            font-size: 12px;
+            background-color: @primary;
+            color: @white;
+            display: inline-block;
+            padding: 2px 20px;
+            position: relative;
+
+            &:after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              width: 5px;
+              height: 5px;
+              background: #fff;
+              border-radius: 100px;
+              box-shadow: inset 1px 1px 1px #000;
+              right: 7px;
+              transform: translateY(-50%);
+              z-index: 1;
+            }
+
+            &:before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              width: 5px;
+              height: 5px;
+              background: #fff;
+              border-radius: 100px;
+              box-shadow: inset 1px 1px 1px #000;
+              left: 7px;
+              transform: translateY(-50%);
+              z-index: 1;
+            }
+          }
+        }
+      }
+
+      &:hover {
+        box-shadow: @box-shadow-hover;
+        border-color: @primary;
+
+        .image-container {
+
+          .p-backside {
+            bottom: 0;
+            opacity: 1;
+
+            a {
+              &.ibtn {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/** responsive mobile layout style ---------------------- **/
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .p-list-wrapper {
+    .p-wrapper {
+      .p-container {
+        .desc-container {
+          .desc {
+            height: 68px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 480px) and (max-width: 575px) {
+  .p-list-wrapper {
+    .p-wrapper {
+      max-width: 50%;
+
+      .p-container {
+        .desc-container {
+          .desc {
+            height: 85px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .p-list-wrapper {
+    .p-wrapper {
+      max-width: 50%;
+
+      .p-container {
+        .desc-container {
+          .desc {
+            height: 67px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .p-list-wrapper {
+    .p-wrapper {
+      .p-container {
+        .desc-container {
+          .desc {
+            height: 85px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .p-list-wrapper {
+    .p-wrapper {
+      .p-container {
+        .desc-container {
+          .desc {
+            height: 60px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {}

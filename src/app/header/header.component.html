@@ -1,0 +1,351 @@
+<header class="desktop-header d-none d-sm-none d-md-none d-lg-block d-xl-block">
+  <div class="container-fluid header-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 logo-wrapper">
+          <div routerLink="/home" class="logo-container">
+            <!-- <img routerLink="/" class="img-fluid" src="assets/images/logo.png" /> -->
+            <h1>SWARNA SHREE YANTRA</h1>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 user-wrapper">
+          <div class="search-box-container">
+            <!-- <input type="text" />
+            <button class="btn-search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button> -->
+            <p-autoComplete [(ngModel)]="searchTerm" class="focus" field="name_english" (onSelect)="goToSearch($event)"
+              [suggestions]="searchData" (completeMethod)="getSearchAutocomplete($event)">
+            </p-autoComplete>
+          </div>
+          <ul class="account-nav">
+            <li *ngIf="userData" class="user">
+              <span class="user-icon">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
+              <a class="user-name" routerLink="/myaccount">
+                <span class="name">{{userData.firstname}} {{userData.lastname}}</span>
+              </a>
+              <ul class="dropdown-menu user-dropdown-menu">
+                <!-- <li class="menu-item" routerLink="/order">
+                  <a>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    <span>Orders</span>
+                  </a>
+                </li> -->
+                <li (click)="logout()" class="menu-item">
+                  <a>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <span>logout</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li *ngIf="!userData" class="user">
+              <span class="user-icon">
+                <i class="fa fa-key" aria-hidden="true"></i>
+              </span>
+              <a routerLink="/login" class="user-name">
+                <span class="name" *ngIf="language == 'En'">Login</span>
+                <span class="name" *ngIf="language == 'Hi'">लॉग इन करें</span>
+              </a>
+            </li>
+            <li class="cart ">
+              <a routerLink="/cart">
+                <span class="cart-icon">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                </span>
+                <span class="cart-count">{{cartUpdateCount}}</span>
+              </a>
+              <ul class="dropdown-menu cart-dropdown-menu" *ngIf="cartUpdateCount!=0">
+                <li class="menu-item cart-dropdown-lable">
+                  <p>Recently Added Items ({{cartUpdateCount}})</p>
+                </li>
+                <div class="inside-list">
+                  <li *ngFor="let data of cartData" class="menu-item">
+                    <div class="list-wrapper">
+                      <div class="list-col thumbnail">
+                        <img class="img-fluid" [src]="imageServer+data.image_name">
+                      </div>
+                      <div class="list-col title">
+                        <p>{{data.name}}</p>
+                        <span>{{data.quantity}} x
+                          <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                          {{data.price}}</span>
+                      </div>
+                      <div class="list-col remove">
+                        <span (click)="removeFromCart(data)">
+                          <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                </div>
+                <li class="menu-item total">
+                  <div class="row no-gutters">
+                    <div class="col-md-7 label text-left">
+                      <p>Total</p>
+                    </div>
+                    <div class="col-md-5 price text-right">
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+                      {{cartTotal}}</div>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <div class="row no-gutters ">
+                    <div class="col-md-12 ">
+                      <div routerLink="/checkout" class="text-center">
+                        <button class="btn btn1" type="submit">Check out</button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid navbar-container">
+    <div class="container">
+      <div class="row ">
+        <div class="col-lg-9 col-md-9 main-navigation-wrapper">
+          <ul class="main-navigation">
+            <li class="menu-item" *ngFor="let data of navArr; let i=index" [ngClass]="{ 'active': selectedIndex==i }"
+              (click)="selectMenuItem(i, data.target_url)">
+              <a>
+                <span class="menu-label">{{data.nav_name | uppercase}}</span>
+                <span class="angle-down" *ngIf="data.subNavArr && data.subNavArr.length> 0">
+                  <i class="fa fa-angle-down"></i>
+                </span>
+              </a>
+              <ul class="dropdown-menu" *ngIf="data.subNavArr && data.subNavArr.length> 0">
+                <li class="menu-item" (click)="selectMenuItem(i, subnavdata.target_url,subindex)"
+                  *ngFor="let subnavdata of data.subNavArr; let subindex =index ">
+                  <a title="{{subnavdata.nav_name}}">
+                    <span>{{subnavdata.nav_name | titlecase}}</span>
+                  </a>
+                  <ul class="dropdown-menu lavel2" *ngIf="subnavdata.subNavArr1 && subnavdata.subNavArr1.length > 0">
+                    <li class="menu-item" (click)="selectMenuItem(i, subnavdata1.target_url,subindex1)"
+                      *ngFor="let subnavdata1 of subnavdata.subNavArr1; let subindex1 = index">
+                      <a title="{{subnavdata1.nav_name}}">
+                        <span>{{subnavdata1.nav_name | titlecase}}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <!-- <span class="hover-mover"></span> -->
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-3 main-navigation-wrapper currency-navbar-wrapper">
+          <ul class="main-navigation">
+            <li class="menu-item currency-menu">
+              <a>
+                <span class="cur-image">
+                  <img style="width:20px;" class="img-fluid" src="assets/images/{{currency?.currency_name}}.jpg">
+                </span>
+                <span class="cur-label">
+                  <!-- <span *ngIf="language == 'Hi'">मुद्रा</span> -->
+                  <em class="cur-symbol">{{currency?.currency_symbol}}</em> {{currency?.currency_name}}
+                </span>
+              </a>
+              <ul class="dropdown-menu" *ngIf="currencies">
+                <li class="menu-item" *ngFor="let currencyData of currencies;let i=index"
+                  (click)="updateCurrency(currencyData.currency_name)">
+                  <a>
+                    <span class="cur-image">
+                      <img style="width:20px;" class="img-fluid" src="assets/images/{{flags[i]}}.jpg">
+                    </span>
+                    <span class="cur-label">
+                      <em class="cur-symbol">{{currencyData.currency_symbol}}</em> {{currencyData.currency_name}}
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- <li class="menu-item language-menu">
+              <a>
+                <span class="lan-img-icon" *ngIf="selectedLanguage">
+                  <img class="img-fluid" src="assets/images/{{selectedLanguage}}.png" />
+                </span>
+                <span class="lan-label" *ngIf="selectedLanguage">{{selectedLanguage}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li (click)="changeLanguage('En')" class="menu-item">
+                  <a>
+                    <span class="icon">
+                      <img class="img-fluid" src="assets/images/us.png" />
+                    </span>
+                    <span class="label">EN</span>
+                  </a>
+                </li>
+                <li (click)="changeLanguage('Hi')" class="menu-item">
+                  <a>
+                    <span class="icon">
+                      <img class="img-fluid" src="assets/images/in.png" />
+                    </span>
+                    <span class="label">HI</span>
+                  </a>
+                </li>
+              </ul>
+            </li> -->
+            <!-- <span class="hover-mover"></span> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<header class="mobile-header d-block d-sm-block d-md-block d-lg-none d-xl-none">
+  <div class="container-fluid mobile-header-container">
+    <div class="row">
+      <div class="col-7 logo-container">
+        <!-- <div class="logo-wrapper">
+          <img routerLink="/" class="img-fluid" src="assets/images/logo.png" />
+        </div> -->
+        <h4>SWARNA SHREE YANTRA</h4>
+      </div>
+      <div class="col-5 hamburger-container">
+        <ul class="menu-buttons-wrapper">
+          <li class="menu-item cart">
+            <a routerLink="/cart">
+              <span class="cart-icon">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              </span>
+              <span class="cart-count">{{cartUpdateCount}}</span>
+            </a>
+          </li>
+          <li class="menu-item hamburger" (click)="setHamburger()" [ngClass]="{'open': hamburger == true}">
+            <a class="hamburger-icon" href="javascript:void(0);">
+              <span class="top-bar"></span>
+              <span class="center-bar"></span>
+              <span class="bottom-bar"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-navbar-container" [ngClass]="{'open': hamburger == true}">
+    <div class="mobile-navbar-wrapper">
+      <ul class="mobile-navbar user-navbar">
+        <li class="menu-item menu-search-box">
+          <!-- <a class="search-box" href="javascript:void(0);">
+            <input class="search" type="text" />
+            <button class="btn-search">
+              <i class="fa fa-search"></i>
+            </button>
+          </a> -->
+          <p-autoComplete [(ngModel)]="searchTerm" field="name_english" (onSelect)="goToSearch($event)"
+            [suggestions]="searchData" (completeMethod)="getSearchAutocomplete($event)">
+          </p-autoComplete>
+        </li>
+        <li class="menu-item menu-user-log">
+          <a class="user log" href="javascript:void(0);" (click)="changeRoute('login')">
+            <span class="user-icon">
+              <i class="fa fa-user"></i>
+            </span>
+            <span class="label" *ngIf="!userData">Login</span>
+            <span class="label" *ngIf="userData">{{userData.firstname}} {{userData.lastname}}</span>
+          </a>
+          <a *ngIf="userData" class="user logout" (click)="logout()" href="javascript:void(0);">
+            <span class="label">Logout</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="mobile-navbar" *ngIf="userData">
+        <li class="menu-item" (click)="changeRoute('order')">
+          <a>
+            <span>Orders</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="mobile-navbar main-navbar">
+        <li class="menu-item" *ngFor="let data of navArr; let i=index" [ngClass]="{ 'active': selectedIndex==i }"
+          (click)="selectMenuItem(i, data.target_url)">
+          <a class="" href="javascript:void(0);">
+            <span class="label">{{data.nav_name | lowercase}}</span>
+            <span class="angle-down" *ngIf="data.subNavArr && data.subNavArr.length> 0">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+          <ul class="mobi-dropdown-menu" *ngIf="data.subNavArr && data.subNavArr.length> 0 && showDropDown1">
+            <li class="menu-item" (click)="selectMenuItem(i, subnavdata.target_url,subindex)"
+              *ngFor="let subnavdata of data.subNavArr; let subindex =index ">
+              <a>
+                <span>{{subnavdata.nav_name | lowercase}}</span>
+                <span class="angle-down" *ngIf="subnavdata.subNavArr1 && subnavdata.subNavArr1.length> 0">
+                  <i class="fa fa-angle-down"></i>
+                </span>
+              </a>
+              <ul class="mobi-dropdown-menu lavel2"
+                *ngIf="subnavdata.subNavArr1 && subnavdata.subNavArr1.length > 0 && showDropDown2 && subindex==selectedSubIndex">
+                <li class="menu-item" (click)="selectMenuItem(i, subnavdata1.target_url,subindex1)"
+                  *ngFor="let subnavdata1 of subnavdata.subNavArr1; let subindex1 = index">
+                  <a>
+                    <span>{{subnavdata1.nav_name | lowercase}}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- <ul class="mobile-navbar">
+        <li class="menu-item menu-currency" (click)="selectMenuItem(0,'','')" [ngClass]="{ 'active': selectedIndex==1 }">
+          <a>
+            <span *ngIf="language !='Hi'">Currency
+              <em class="cur-symbol">{{currency?.currency_symbol}}</em>
+            </span>
+            <span class="angle-down">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+          <ul class="mobi-dropdown-menu" *ngIf="currencies">
+            <li class="menu-item" *ngFor="let currencyData of currencies" (click)="updateCurrency(currencyData.currency_name)">
+              <a>
+                <i aria-hidden="true" *ngIf="currencyData.currency_name != 'INR'">{{currencyData.currency_symbol}}</i>
+                <i class="fa fa-inr" *ngIf="currencyData.currency_name == 'INR'" aria-hidden="true"></i>
+                <span>{{currencyData.currency_name}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item menu-language" (click)="selectMenuItem(0,'','')" [ngClass]="{ 'active': selectedIndex==2 }">
+          <a>
+            <span class="icon" *ngIf="selectedLanguage">
+              <img class="img-fluid" src="assets/images/{{selectedLanguage}}.png" />
+            </span>
+            <span class="label" *ngIf="selectedLanguage">{{selectedLanguage}}</span>
+            <span class="angle-down">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+          <ul class="mobi-dropdown-menu">
+            <li (click)="changeLanguage('En')" class="menu-item">
+              <a>
+                <span class="icon">
+                  <img class="img-fluid" src="assets/images/us.png" />
+                </span>
+                <span class="label">EN</span>
+              </a>
+            </li>
+            <li (click)="changeLanguage('Hi')" class="menu-item">
+              <a>
+                <span class="icon">
+                  <img class="img-fluid" src="assets/images/in.png" />
+                </span>
+                <span class="label">HI</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <span class="hover-mover"></span>
+      </ul> -->
+    </div>
+  </div>
+</header>

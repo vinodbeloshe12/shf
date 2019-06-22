@@ -1,0 +1,1064 @@
+/*Product watch*/
+
+@import url(../../assets/css/theme.less);
+
+.page-container {
+  padding: 0;
+}
+
+.productWatchTab {
+  background: @white;
+
+  .section-heading {
+    &.page-heading {
+      .title {
+        padding: 10px 60px 10px 20px;
+      }
+    }
+  }
+
+  .product-row {
+    margin: 0;
+
+    .productWatchHead {
+      width: 100%;
+      background-color: @gray-lighten;
+      border: 1px solid @gray;
+      padding: 10px 15px 10px 15px;
+      position: relative;
+      overflow: hidden;
+
+      .title {
+        float: left;
+        line-height: 35px;
+      }
+
+      h5 {
+        float: left;
+        margin-bottom: 0px;
+        font-weight: normal;
+
+        padding-top: 2px;
+        color: @white;
+      }
+
+      .addNew {
+        float: right;
+        transition: 0.5s all;
+
+        .addIteams {
+          margin: 0;
+        }
+
+        button {
+
+          outline: none;
+          cursor: pointer;
+          padding: 7px 15px;
+          transition: all 0.5s;
+          margin-right: 8px;
+          font-weight: normal;
+
+          i {
+            transition: all 0.5s;
+            margin-right: 3px;
+          }
+
+          &:hover {
+            i {
+              transform: rotateY(180deg);
+            }
+          }
+        }
+
+        .productInput {
+          position: absolute;
+          width: 0;
+          right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          white-space: nowrap;
+          transition: all 0.5s;
+          overflow: hidden;
+          opacity: 0;
+
+          &.addProductBox {
+            width: 260px !important;
+            opacity: 1 !important;
+            border-radius: 3px;
+            padding: 4px;
+            right: 150px;
+            background: @gray-lighten;
+            z-index: 1;
+          }
+
+          input {
+            padding: 11px 12px 11px 12px;
+
+            z-index: 3;
+            outline: 0;
+            transition: all 0.5s;
+            border: 1px solid @gray;
+            width: 65%;
+
+            &:nth-of-type(2) {
+              width: 30%;
+              margin-left: 10px;
+            }
+          }
+        }
+
+        .addnewBox {
+          float: right;
+
+          a.crossIcon {
+            width: 0px;
+            border-radius: 100px;
+            height: 18px; // border: 1px solid #891212;
+            color: #891212;
+            line-height: 15px;
+            text-align: center;
+
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 0px;
+            opacity: 0;
+            transition: 0.5s all;
+
+            &.showClosbtn {
+              opacity: 1;
+              width: 18px;
+              margin-left: 5px;
+              border: 1px solid #891212;
+
+              line-height: 17px;
+            }
+          }
+        }
+      }
+
+      &:nth-child(even) {
+        background: #f7f7f7;
+      }
+    }
+  }
+
+  .product-row-table {
+    margin: 0;
+    margin-top: 15px;
+
+    .productheader {
+      width: 100%;
+      border: 0;
+      padding: 10px;
+      background-color: @primary;
+      color: @white;
+      display: inline-flex;
+
+      h5 {
+
+        margin-bottom: 0;
+        color: @white;
+      }
+    }
+
+    .check-box-title {
+      .styled-checkbox {
+        width: 50px;
+
+        input {
+          left: 5px;
+        }
+
+        .CheckBox {
+          left: 5px;
+        }
+      }
+    }
+  }
+
+  .check-box-title-data {
+    .styled-checkbox {
+      width: 50px;
+      top: -13px;
+    }
+  }
+
+  .itemWatch {
+    display: inline-block;
+    width: 40%;
+  }
+
+  .availabillityWatch {
+    display: inline-block;
+    width: 22%;
+  }
+
+  .actionWatch {
+    display: inline-block;
+    width: 10%;
+  }
+
+  .priceWatch {
+    display: inline-block;
+    width: 22%;
+    vertical-align: text-top;
+  }
+
+  .product-row-table-data {
+    padding: 0 15px;
+    margin-left: 0;
+    margin-right: 0;
+
+    .product-row {
+      padding: 0;
+    }
+
+    .productWatchdata {
+      width: 100%;
+      border: 0;
+      padding: 8px 15px;
+      display: inline-flex;
+      margin-top: 5px;
+      position: relative;
+      border: thin solid #eee;
+      vertical-align: middle;
+      align-items: center;
+      transition: all 0.5s;
+
+      &:nth-child(odd) {
+        background-color: @gray-lighten;
+      }
+
+      &:hover {
+        background-color: @gray-lighten;
+      }
+
+      .watchParagraph {
+
+        font-weight: normal;
+        margin-bottom: 0px;
+        margin-top: 8px;
+      }
+
+      .imgInfo {
+
+        font-weight: normal;
+        width: 78%;
+        float: left;
+      }
+
+      .itemWatch {
+        display: inline-block;
+        width: 40%;
+        cursor: pointer;
+
+        .infoImgWatch {
+          .productWatchImg {
+            width: 15%;
+            float: left;
+            margin-right: 10px;
+            margin-top: 0px;
+
+            img {
+              width: 100%;
+              border: 1px solid @gray;
+            }
+          }
+
+          .imgInfo {
+            .imgName {
+              margin-bottom: 7px;
+            }
+
+            .imgdeatils {
+
+              margin-bottom: 7px;
+
+              a {
+                transition: all 0.5s;
+                font-weight: 600;
+
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .actionWatch {
+      .pwatchIcons {
+        a {
+          width: 30px;
+          height: 30px;
+
+          text-align: center;
+          line-height: 28px;
+          background-color: @white;
+          border: 1px solid @primary;
+          color: @primary;
+          display: inline-block;
+          border-radius: 3px;
+          margin-right: 7px;
+          transition: all 0.5s;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          cursor: pointer;
+
+          i {
+            transition: all 0.5s;
+          }
+
+          &.actionCart {
+            margin-top: 5px;
+          }
+
+          &.actionRemove {
+            margin-top: 5px;
+          }
+
+          &:hover {
+            border: 1px solid @primary;
+            box-shadow: 0px 0px 3px @primary;
+
+            i {
+              transform: rotateY(180deg);
+              color: @primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .noWatchItem {
+    text-align: center;
+    width: 100%;
+    padding: 30px 0px;
+
+    h3 {
+      font-weight: 600;
+    }
+  }
+}
+
+/** confirm pop up --------------- **/
+
+.confirmPopup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+
+  .popUpDetails {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: @white;
+    max-width: 500px;
+    width: 80%;
+    transition: all 0.5s;
+    padding: 25px;
+    border: 3px solid @primary;
+    border-radius: 0;
+
+    .txtPopup {
+      .informtxtx {
+
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: @primary;
+        text-align: center;
+        text-shadow: 1px 1px 0px #c9c9c9;
+      }
+
+      .confirmBtn {
+        text-align: center;
+        padding-top: 5px;
+
+        button {
+          color: @white;
+          background: @primary;
+          outline: 0;
+          border: 1px solid;
+          padding: 5px 30px 7px 30px;
+
+          cursor: pointer;
+          margin-right: 10px;
+          border-radius: 3px;
+          transition: all 0.5s;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .productWatchTab {
+    .product-row {
+      .productWatchHead {
+        padding: 0;
+        background: @white;
+        border: 0;
+
+        .title {
+          background: @gray-lighten;
+          width: 100%;
+          border: 1px solid @gray;
+
+          padding: 5px 10px 5px 10px;
+          margin-bottom: 15px;
+        }
+
+        .addNew {
+          padding: 5px 0px;
+
+          button {
+            padding: 5px 8px;
+
+            margin-right: 5px;
+            display: inline-block;
+
+            i {
+
+              margin-right: 1px;
+            }
+          }
+
+          .addnewBox {
+            .productInput {
+              top: 74px;
+
+              input {
+                padding: 4px 9px;
+
+                &:nth-child(1) {
+                  width: 60%;
+                }
+              }
+
+              &.addProductBox {
+                width: 68% !important;
+                right: 97px !important;
+                background: @white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productheader {
+      display: none !important;
+    }
+
+    .product-row-table-data {
+      .productWatchdata {
+        display: inline-block;
+        border-left: 3px solid @primary;
+        margin-bottom: 10px;
+
+        .check-box-title-data {
+          position: absolute;
+          right: 25px;
+          top: 5px;
+
+          .styled-checkbox {
+            right: 0;
+            width: 0;
+            top: 0;
+          }
+        }
+
+        .infoImgWatch,
+        .watchParagraph,
+        .pwatchIcons,
+        .infoImgWatch {
+          width: 74%;
+          display: inline-block;
+          margin: 2px;
+
+        }
+
+        .itemWatch,
+        .itemWatch,
+        .availabillityWatch,
+        .priceWatch,
+        .actionWatch {
+          min-width: 100%;
+          width: 100%;
+          display: inline-flex;
+          margin-top: 10px;
+
+          &:before {
+            width: 30%;
+            content: "";
+            display: inline-block;
+            color: @primary;
+            font-weight: 600;
+
+          }
+        }
+
+        .itemWatch {
+          .infoImgWatch {
+            .imgInfo {
+              .imgName {}
+            }
+          }
+
+          &:before {
+            content: "Item:";
+          }
+        }
+
+        .availabillityWatch {
+          &:before {
+            content: "Availability:";
+          }
+        }
+
+        .priceWatch {
+          &:before {
+            content: "Price:";
+          }
+        }
+
+        .actionWatch {
+          .pwatchIcons {
+
+            .actionCart,
+            .actionRemove {
+              width: 25px;
+              height: 25px;
+
+              padding: 0px 0px 0px 1px;
+              text-align: center;
+              line-height: 23px;
+              margin-top: 0;
+            }
+          }
+
+          &:before {
+            content: "Action:";
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 480px) and (max-width: 575px) {
+  .productWatchTab {
+    .product-row {
+      .productWatchHead {
+        padding: 0;
+        background: @white;
+        border: 0;
+
+        .title {
+          background: @gray-lighten;
+          width: 100%;
+          border: 1px solid @gray;
+
+          padding: 5px 10px 5px 10px;
+          margin-bottom: 15px;
+        }
+
+        .addNew {
+          padding: 5px 0px;
+
+          button {
+            padding: 5px 8px;
+
+            margin-right: 5px;
+            display: inline-block;
+
+            i {
+
+              margin-right: 1px;
+            }
+          }
+
+          .addnewBox {
+            .productInput {
+              top: 74px;
+
+              input {
+                padding: 4px 9px;
+
+                &:nth-child(1) {
+                  width: 60%;
+                }
+              }
+
+              &.addProductBox {
+                width: 68% !important;
+                right: 85px !important;
+                background: @white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productheader {
+      display: none !important;
+    }
+
+    .product-row-table-data {
+      .productWatchdata {
+        display: inline-block;
+        border-left: 3px solid @primary;
+        margin-bottom: 10px;
+
+        .check-box-title-data {
+          position: absolute;
+          right: 25px;
+          top: 5px;
+
+          .styled-checkbox {
+            right: 0;
+            width: 0;
+            top: 0;
+          }
+        }
+
+        .infoImgWatch,
+        .watchParagraph,
+        .pwatchIcons,
+        .infoImgWatch {
+          width: 74%;
+          display: inline-block;
+          margin: 2px;
+
+        }
+
+        .itemWatch,
+        .itemWatch,
+        .availabillityWatch,
+        .priceWatch,
+        .actionWatch {
+          min-width: 100%;
+          width: 100%;
+          display: inline-flex;
+          margin-top: 10px;
+
+          &:before {
+            width: 30%;
+            content: "";
+            display: inline-block;
+            color: @primary;
+            font-weight: 600;
+
+          }
+        }
+
+        .itemWatch {
+          .infoImgWatch {
+            .imgInfo {
+              .imgName {}
+            }
+          }
+
+          &:before {
+            content: "Item:";
+          }
+        }
+
+        .availabillityWatch {
+          &:before {
+            content: "Availability:";
+          }
+        }
+
+        .priceWatch {
+          &:before {
+            content: "Price:";
+          }
+        }
+
+        .actionWatch {
+          .pwatchIcons {
+
+            .actionCart,
+            .actionRemove {
+              width: 25px;
+              height: 25px;
+
+              padding: 0px 0px 0px 1px;
+              text-align: center;
+              line-height: 23px;
+              margin-top: 0;
+            }
+          }
+
+          &:before {
+            content: "Action:";
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .productWatchTab {
+    .product-row {
+      .productWatchHead {
+        padding: 0;
+        background: @white;
+        border: 0;
+
+        .title {
+          background: #f9f9f9;
+          width: 100%;
+          border: 1px solid @gray;
+
+          padding: 5px 10px 5px 10px;
+          margin-bottom: 15px;
+        }
+
+        .addNew {
+          padding: 5px 0px;
+
+          button {
+            padding: 5px 8px;
+
+            margin-right: 5px;
+            display: inline-block;
+
+            i {
+
+              margin-right: 1px;
+            }
+          }
+
+          .addnewBox {
+            .productInput {
+              top: 74px;
+
+              input {
+                padding: 4px 9px;
+
+                &:nth-child(1) {
+                  width: 60%;
+                }
+              }
+
+              &.addProductBox {
+                width: 68% !important;
+                right: 77px !important;
+                background: @white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productheader {
+      display: none !important;
+    }
+
+    .product-row-table-data {
+      .productWatchdata {
+        display: inline-block;
+        border-left: 3px solid @primary;
+        margin-bottom: 10px;
+
+        .check-box-title-data {
+          position: absolute;
+          right: 25px;
+          top: 5px;
+
+          .styled-checkbox {
+            right: 0;
+            width: 0;
+            top: 0;
+          }
+        }
+
+        .infoImgWatch,
+        .watchParagraph,
+        .pwatchIcons,
+        .infoImgWatch {
+          width: 74%;
+          display: inline-block;
+          margin: 2px;
+
+        }
+
+        .itemWatch,
+        .itemWatch,
+        .availabillityWatch,
+        .priceWatch,
+        .actionWatch {
+          min-width: 100%;
+          width: 100%;
+          display: inline-flex;
+          margin-top: 10px;
+
+          &:before {
+            width: 30%;
+            content: "";
+            display: inline-block;
+            color: @primary;
+            font-weight: 600;
+
+          }
+        }
+
+        .itemWatch {
+          .infoImgWatch {
+            .imgInfo {
+              .imgName {}
+            }
+          }
+
+          &:before {
+            content: "Item:";
+          }
+        }
+
+        .availabillityWatch {
+          &:before {
+            content: "Availability:";
+          }
+        }
+
+        .priceWatch {
+          &:before {
+            content: "Price:";
+          }
+        }
+
+        .actionWatch {
+          .pwatchIcons {
+
+            .actionCart,
+            .actionRemove {
+              width: 25px;
+              height: 25px;
+
+              padding: 0px 0px 0px 1px;
+              text-align: center;
+              line-height: 23px;
+              margin-top: 0;
+            }
+          }
+
+          &:before {
+            content: "Action:";
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .productWatchTab {
+    .product-row {
+      .productWatchHead {
+        padding: 10px 20px 10px 15px;
+
+        .addNew {
+          padding: 5px 0px;
+
+          button {
+            padding: 5px 8px;
+
+            margin-right: 5px;
+            display: inline-block;
+
+            i {
+
+              margin-right: 1px;
+            }
+          }
+
+          .addnewBox {
+            .productInput {
+              top: 29px;
+
+              input {
+                padding: 4px 9px;
+
+                &:nth-child(1) {
+                  width: 60%;
+                }
+              }
+
+              &.addProductBox {
+                width: 60% !important;
+                right: 95px !important;
+                background: @white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productheader {
+      display: none !important;
+    }
+
+    .product-row-table-data {
+      .productWatchdata {
+        display: inline-block;
+
+        .check-box-title-data {
+          position: absolute;
+          right: 25px;
+          top: 5px;
+
+          .styled-checkbox {
+            right: 0;
+            width: 0;
+            top: 0;
+          }
+        }
+
+        .infoImgWatch,
+        .watchParagraph,
+        .pwatchIcons,
+        .infoImgWatch {
+          width: 80%;
+          display: inline-block;
+          margin: 2px;
+
+        }
+
+        .itemWatch,
+        .itemWatch,
+        .availabillityWatch,
+        .priceWatch,
+        .actionWatch {
+          min-width: 100%;
+          width: 100%;
+          display: inline-flex;
+          margin-top: 10px;
+
+          &:before {
+            width: 18%;
+            content: "";
+            display: inline-block;
+            color: @primary;
+            font-weight: 600;
+
+          }
+        }
+
+        .itemWatch {
+          .infoImgWatch {
+            .imgInfo {
+              .imgName {}
+            }
+          }
+
+          &:before {
+            content: "Item:";
+          }
+        }
+
+        .availabillityWatch {
+          &:before {
+            content: "Availability:";
+          }
+        }
+
+        .priceWatch {
+          &:before {
+            content: "Price:";
+          }
+        }
+
+        .actionWatch {
+          .pwatchIcons {
+
+            .actionCart,
+            .actionRemove {
+              width: 25px;
+              height: 25px;
+
+              padding: 0px 0px 0px 1px;
+              text-align: center;
+              line-height: 23px;
+              margin-top: 0;
+            }
+          }
+
+          &:before {
+            content: "Action:";
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .productWatchTab {
+    .product-row-table-data {
+      .actionWatch {
+        .pwatchIcons {
+          a {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    .product-row {
+      .productWatchHead {
+        padding: 10px 20px 10px 15px;
+
+        .addNew {
+          padding: 5px 0px;
+
+          button {
+            padding: 5px 8px;
+
+            margin-right: 5px;
+            display: inline-block;
+
+            i {
+
+              margin-right: 1px;
+            }
+          }
+
+          .addnewBox {
+            .productInput {
+              top: 29px;
+
+              input {
+                padding: 4px 9px;
+
+                &:nth-child(1) {
+                  width: 60%;
+                }
+              }
+
+              &.addProductBox {
+                width: 45% !important;
+                right: 95px !important;
+                background: @white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

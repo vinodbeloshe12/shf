@@ -1,0 +1,154 @@
+<div class="container page-container categories-page ">
+  <div class="row page-row ">
+    <!-- page title -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container page-title-container">
+      <div class="page-title-wrapper">
+        <h3 class="title">Page</h3>
+        <ul class="controll-buttons">
+          <li>
+            <button (click)="onButtonclick()" class="btn btn-add-new" pbutton="" type="button">
+              <span class="icon">
+                <i class="fa" [ngClass]="showForm ? 'fa-minus-circle':'fa-plus-circle'"></i>
+              </span>
+              <span class="label"> {{showForm ? "Close":"Add"}}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- primeng p-datatable for product list -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container table-container">
+      <div class="table-wrapper" *ngIf="!showForm">
+        <p-dataTable class="product-datatable" #dataTable selectionMode="single" [responsive]="true"
+          [globalFilter]="gb1" [(selection)]="selectedUser" [value]="pageData" [rows]="5" [paginator]="true"
+          [pageLinks]="3">
+          <div class="locationId">
+            <p-column sortable="true" field="id" header="ID"></p-column>
+          </div>
+          <div class="businessName">
+            <p-column sortable="true" field="title_english" header="Page"></p-column>
+          </div>
+          <div class="action">
+            <p-column field="action" header="Action">
+              <ng-template let-uData="rowData" pTemplate="body">
+                <button type="button" class="btn i-btn" pButton (click)="onEditSelect(uData)">
+                  <span class="icon">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <button type="button" class="btn i-btn" pButton (click)="deletePage(uData)">
+                  <span class="icon">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </ng-template>
+            </p-column>
+          </div>
+
+        </p-dataTable>
+      </div>
+    </div>
+    <!-- forms for product add -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container forms-container" *ngIf="showForm">
+      <div class="section-wrapper forms-wrappper">
+        <div class="forms-container border-container">
+          <div class="form-title">
+            <h4 class="title">{{isEdit?'Edit':'Add New'}} Page</h4>
+          </div>
+          <form #pageForm="ngForm" (ngSubmit)="submitPage(formData)">
+            <div class="form-content">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Page Name</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="nameEnglish" [(ngModel)]="formData.title_english" #title_english="ngModel"
+                        autocomplete="off" required type="text" class="inputbox" placeholder="English" />
+                      <div *ngIf="title_english.invalid && (title_english.dirty || title_english.touched)"
+                        class="alert">
+                        <div *ngIf="title_english.errors.required">
+                          Name English is required.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="nameHindi" [(ngModel)]="formData.title_hindi" #title_hindi="ngModel"
+                        autocomplete="off" required type="text" class="inputbox" placeholder="Hindi" />
+                      <div *ngIf="title_hindi.invalid && (title_hindi.dirty || title_hindi.touched)" class="alert">
+                        <div *ngIf="title_hindi.errors.required">
+                          Name Hindi is required.
+                        </div>
+                      </div>
+                      <div>
+                        <ul>
+                          <!-- <li *ngFor="let text of translatedTextArray" (click)="setText(text)">{{text}}</li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--description-->
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Description English</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <div name="descriptionEnglish" [(ngModel)]="formData.description_english"
+                        [ngxSummernote]="config">
+                      </div>
+                      <span *ngIf="descriptionEnglish">*Required </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label ">Description Hindi</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <div name="descriptionHindi" [(ngModel)]="formData.description_hindi" [ngxSummernote]="config">
+                      </div>
+                      <span *ngIf="descriptionHindi">*Required </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--parent nav and new-tab-->
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Upload Images</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input type="file" multiple required class="form-control-file" (change)="onFileChange($event)"
+                        name="image">
+                      <ul *ngIf="imageName">
+                        <li *ngFor="let name of imageName">{{name}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="buttons-wrapper">
+                    <button class="btn" [disabled]="!pageForm.valid" type="submit">submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

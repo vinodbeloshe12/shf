@@ -1,0 +1,75 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">My Account</h2>
+          <ul class="breadcrumbs">
+            <li class="list">
+              <a>
+                <span routerLink="/">Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>My Account</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container account-page">
+  <div class="row page-row">
+    <div class="col-12 section account-section">
+      <div class="row">
+        <div class="col-3 sidebar-container">
+          <div class="sidebar-wrapper">
+            <div class="widget-container">
+              <div class="profile-picture">
+                <img class="img-fluid" src="../assets/images/profile-icon.png">
+                <figcaption class="figure-caption text-center user-name" *ngIf="userData">{{userData.firstname}}
+                  {{userData.lastname}}
+                </figcaption>
+              </div>
+              <!-- <div *ngIf="userData" class="user-name">
+                <h4 class="name">{{userData.firstname}} {{userData.lastname}}</h4>
+              </div> -->
+              <div class="navbar-container">
+                <ul class="navbar-items">
+                  <li *ngFor="let data of (userData.accesslevel == '1'?navData:usernavData)" class="list-item"
+                    [ngClass]="selectedPage==data.name?'active':''">
+                    <a class="item" (click)="selectPage(data.name)">
+                      <!-- <i class="fa fa-user" aria-hidden="true"></i> &nbsp; -->
+                      <span>{{data.name}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-9 inner-page-container">
+          <div class="inner-page-wrapper">
+            <!-- <div class="page-title">
+            </div> -->
+            <div [ngSwitch]="selectedPage">
+              <app-profile class="myaccount-profile" *ngSwitchCase="'Profile'"></app-profile>
+              <app-category class="myaccount-category" *ngSwitchCase="'Category'"></app-category>
+              <app-product class="myaccount-product" *ngSwitchCase="'Product'"></app-product>
+              <app-page class="myaccount-pages" *ngSwitchCase="'Pages'"></app-page>
+              <app-order class="myaccount-orders" *ngSwitchCase="'Orders'"></app-order>
+              <app-user class="myaccount-users" *ngSwitchCase="'Users'"></app-user>
+              <app-add-blog class="myaccount-blogs" *ngSwitchCase="'Blogs'"></app-add-blog>
+              <app-slider class="myaccount-slider" *ngSwitchCase="'Slider'"></app-slider>
+              <app-location class="myaccount-location" *ngSwitchCase="'Location'"></app-location>
+              <app-menu class="myaccount-navigation" *ngSwitchCase="'Navigation'"></app-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

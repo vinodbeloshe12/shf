@@ -1,0 +1,116 @@
+<div (click)="photoGalleryClick()">
+  <div class="container-fluid page-header-container" (scroll)="scrollHandler($event)">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 page-header-wrapper">
+          <div class="page-header">
+            <h2 class="title">Pictures</h2>
+            <ul class="breadcrumbs">
+              <li class="list" routerLink="/">
+                <a>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li class="list">
+                <a>
+                  <span>Pictures</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container page-container photo-gallery-page">
+    <div class="row">
+      <div class="col-lg-3 col-md-3">
+        <div class="category-container catContainer">
+          <span class="title-category-tag d-none d-sm-none d-md-none d-lg-block">Categories</span>
+          <span class="category-tag d-lg-none d-md-block d-sm-block" (click)="openCategoriesMobile()"></span>
+          <ul class="category-navbar" id="categoryContainerMobileId">
+            <li *ngFor="let imageAndCategory of imagesArray; let i = index" (click)="scrollToCategory(i)">
+              <a>{{imageAndCategory.category != 'null'?imageAndCategory.category:'Other'}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- <div class="category-container" >
+      <span class="category-tag" (click)="openCategoriesMobile()"></span>
+      <ul class="catContainer" id="categoryContainerMobileId">
+        <li *ngFor="let imageAndCategory of imagesArray; let i = index" (click)="scrollToCategory(i)">
+          <a>{{imageAndCategory.category != 'null'?imageAndCategory.category:'Other'}}</a>
+        </li>
+      </ul>
+    </div> -->
+      <div class="col-lg-9 col-md-12 photo-gallary-container">
+        <div class="spacer"></div>
+        <div class="photo-gallary-wrapper" *ngFor="let imageAndCategory of imagesArray; let i = index"
+          id="categoryId{{i}}">
+          <h3 class="category-title">{{imageAndCategory.category != 'null'?imageAndCategory.category:'Other'}}</h3>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 picture-container" *ngFor="let data of imageAndCategory.names; let j=index;">
+              <div class="picture-wrapper imgContainer" (click)="openImage(i,j)">
+                <img class="img-fluid" [src]="imageServer+data" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="photo-gallery-wrapper">
+      <ul class="nav nav-tabs nav-justified">
+        <li *ngFor="let imageAndCategory of imagesArray; let i = index" class="col-lg-2">
+          <div *ngIf="imageAndCategory.category != 'null'">
+            <a href="#">{{imageAndCategory.category}}</a>
+          </div>
+        </li>
+       <li class=" col-lg-2"><a href="#">Large Size 108mm</a></li>
+        <li class=" col-lg-2"><a href="#">Extra Large Size 243mm</a></li>
+        <li class=" col-lg-2"><a href="#">All Three Sizes</a></li>
+        <li class=" col-lg-2"><a href="#">2D Yantra/ Arts As Corporate Gifts</a></li>
+        <li class="dropdown col-lg-2">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="menu-item"><a href="#">Large L-126mm Size 2D Shree Yantra</a></li>
+            <li class="menu-item"><a href="#">Extra Large EL- 180mm Size 2D Shree Yantra</a></li>
+
+            <li class="menu-item"><a href="#">Small Sizes For Bulk Orders Only</a></li>
+            <li class="menu-item"><a href="#">2D Combined </a></li>
+            <li class="menu-item"><a href="#">Shastras Referred To Develop Swarna Shree Yantra</a></li>
+          </ul>
+        </li> 
+      </ul>
+    </div> -->
+      <!-- <div class="photo-gallery-content">
+      <div class="col-g-12">
+        <div class="row">
+          <div class="col-lg-3" *ngFor="let image of imagesArray.names;let i=index;">
+            <div class="image-container" (click)="openImage(i)">
+             
+              <img [src]="image.names" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    </div>
+  </div>
+  <div class="image-modal" *ngIf="imageModal">
+    <div class="galary-img">
+      <div class="close-button" (click)="closeModal()">
+        <i class="fa fa-times"></i>
+      </div>
+      <div class="zoom-scroll">
+        <img class="image img-fluid" id="imageZoomInOutId" [src]="clickedImage">
+      </div>
+    </div>
+    <div class="zoom-btns">
+      <div class="previous-image" *ngIf="!firstImage" (click)="previousImage()">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </div>
+      <div class="next-image" *ngIf="!lastImage" (click)="nextImage()">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+</div>

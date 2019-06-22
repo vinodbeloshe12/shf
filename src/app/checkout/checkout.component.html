@@ -1,0 +1,574 @@
+<div class="container page-container categories-page ">
+  <div class="row page-row ">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12  section-container">
+      <div class="section-wrapper" *ngIf="!orderPlaced">
+        <!-- ccavenue payment form start -->
+        <form id="CCAvenueForm" ngNoForm
+          action="https://www.shreeyantraindia.com/shreeyantrabackend/ccavRequestHandler.php" name="CCAvenue"
+          method="POST">
+          <input type="hidden" name="tid" id="tid" readonly />
+
+          <input type="hidden" name="merchant_id" value="63290" />
+
+          <input type="hidden" name="order_id" value="123654789" />
+
+          <input type="hidden" name="amount" [(ngModel)]="orderTotal" />
+
+          <input type="hidden" name="currency" [(ngModel)]="currency.currency_name" />
+
+          <!-- <input type="hidden" name="redirect_url" value="https://www.shreeyantraindia.com/shreeyantrabackend/ccavResponseHandler.php"
+          /> -->
+          <input type="hidden" name="redirect_url"
+            value="https://www.shreeyantraindia.com/shreeyantrabackend/index.php/API/paymentSuccess" />
+
+          <input type="hidden" name="cancel_url"
+            value="https://www.shreeyantraindia.com/shreeyantrabackend/index.php/API/paymentCancel" />
+
+          <input name="billing_name" [(ngModel)]="userData.firstname" required type="hidden" class="inputbox" />
+
+          <input name="billing_address" [(ngModel)]="userData.billing_address" required type="hidden"
+            class="inputbox" />
+
+          <input name="billing_zip" [(ngModel)]="userData.billing_pincode" required type="hidden" class="inputbox" />
+
+          <input name="billing_city" [(ngModel)]="userData.billing_city" required type="hidden" class="inputbox" />
+
+          <input name="billing_state" [(ngModel)]="userData.billing_state" required type="hidden" class="inputbox" />
+
+          <input name="billing_country" [(ngModel)]="userData.billing_country" required type="hidden"
+            class="inputbox" />
+
+          <input name="billing_tel" [(ngModel)]="userData.phone" required type="hidden" class="inputbox" />
+
+          <input name="billing_email" [(ngModel)]="userData.email" required type="hidden" class="inputbox" />
+
+          <input name="delivery_name" [(ngModel)]="userData.sfirstname" required type="hidden" class="inputbox" />
+          <input name="delivery_address" [(ngModel)]="userData.shipping_address" required type="hidden"
+            class="inputbox" />
+          <input name="delivery_city" [(ngModel)]="userData.shipping_city" required type="hidden" class="inputbox" />
+          <input name="delivery_state" [(ngModel)]="userData.shipping_state" required type="hidden" class="inputbox" />
+          <input name="delivery_zip" [(ngModel)]="userData.shipping_pincode" required type="hidden" class="inputbox" />
+          <input name="delivery_country" [(ngModel)]="userData.shipping_country" required type="hidden"
+            class="inputbox" />
+          <input name="delivery_tel" [(ngModel)]="userData.phone" required type="hidden" class="inputbox" />
+
+          <input type="hidden" name="language" [(ngModel)]="language" />
+
+          <INPUT TYPE="hidden" value="CheckOut">
+        </form>
+        <!-- ccavenue payment form end -->
+
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-7 accordian-container">
+            <div id="accordion">
+              <div class="accordion">
+                <input type="radio" name="radacc" id="billingAddressId" (click)="validateActivate('billing')"
+                  class="accordian-chk input1" />
+                <h4 class="accordian-header active">Billing Address
+                  <span class="acc-icon"></span>
+                </h4>
+                <div class="accordian-content" tabindex="2">
+                  <div class="row">
+                    <div class="col-md-12 forms-container">
+                      <form (ngSubmit)="billingFrm.form.valid && billingFrmSubmit(userData);nextClicked()"
+                        #billingFrm="ngForm">
+                        <div class="forms-wrapper">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">First Name</label>
+                                  <input name="firstname" #firstname="ngModel" minlength="3"
+                                    [(ngModel)]="userData.firstname" required type="text" class="inputbox" />
+                                  <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+                                    class="alert">
+                                    <div *ngIf="firstname.errors.required">
+                                      First Name is required.
+                                    </div>
+                                    <div *ngIf="firstname.errors.minlength">
+                                      First Name must be at least 3 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Last Name</label>
+                                  <input name="lastname" #lastname="ngModel" minlength="3"
+                                    [(ngModel)]="userData.lastname" required type="text" class="inputbox" />
+                                  <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert">
+                                    <div *ngIf="lastname.errors.required">
+                                      Last Name is required.
+                                    </div>
+                                    <div *ngIf="lastname.errors.minlength">
+                                      Last Name must be at least 3 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Email Address</label>
+                                  <input name="email" #email="ngModel" (keyup)="validateEmail(userData.email)"
+                                    [(ngModel)]="userData.email" required type="text" class="inputbox" />
+
+                                  <div class="alert" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                    <h6 *ngIf="email.errors.required">Email Address is required.</h6>
+                                  </div>
+                                  <h6 class="alert" *ngIf="emailValidate">Email address is not valid</h6>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Mobile No.</label>
+                                  <input name="phone" (keypress)="onlyNumbers($event)" #phone="ngModel" minlength="10"
+                                    maxlength="10" [(ngModel)]="userData.phone" required type="text" class="inputbox" />
+                                  <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert">
+                                    <div *ngIf="phone.errors.required">
+                                      Mobile Number is required.
+                                    </div>
+                                    <div *ngIf="phone.errors.minlength">
+                                      Mobile Number must be at least 10 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="fields-container">
+                            <div class="inputbox-container">
+                              <label class="fields-label  mb-2">Address</label>
+                              <textarea name="billing_address" #billingaddress="ngModel"
+                                [(ngModel)]="userData.billing_address" required rows="2" cols="50"></textarea>
+                              <div *ngIf="billingaddress.invalid && (billingaddress.dirty || billingaddress.touched)"
+                                class="alert">
+                                <div *ngIf="billingaddress.errors.required">
+                                  Address is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Country</label>
+                                  <select name="billing_country" #billingcountry="ngModel"
+                                    (ngModelChange)="getStateByCountry($event,'billing')"
+                                    [(ngModel)]="userData.billing_country" required class="form-control"
+                                    id="exampleFormControlSelect1">
+                                    <option *ngFor="let data of countries" [value]="data.name">{{data.name}}</option>
+                                  </select>
+                                  <div
+                                    *ngIf="billingcountry.invalid && (billingcountry.dirty || billingcountry.touched)"
+                                    class="alert">
+                                    <div *ngIf="billingcountry.errors.required">
+                                      Please select Country Name
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Town / City</label>
+                                  <select name="billing_city" #billingcity="ngModel" [(ngModel)]="userData.billing_city"
+                                    required class="form-control" id="exampleFormControlSelect3">
+                                    <option
+                                      *ngFor="let data of (cities&&cities.length>0?cities:[{name:userData.billing_city}])"
+                                      [value]="data.name">{{data.name}}</option>
+                                  </select>
+                                  <div *ngIf="billingcity.invalid && (billingcity.dirty || billingcity.touched)"
+                                    class="alert">
+                                    <div *ngIf="billingcity.errors.required">
+                                      City is required.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">State</label>
+                                  <select name="billing_state" #billingstate="ngModel"
+                                    [(ngModel)]="userData.billing_state"
+                                    (ngModelChange)="getCityByState($event,'billing')" required class="form-control"
+                                    id="exampleFormControlSelect1">
+                                    <option
+                                      *ngFor="let data of (states&&states.length>0?states:[{name:userData.billing_state}])"
+                                      [value]="data.name">{{data.name}}</option>
+                                  </select>
+                                  <div *ngIf="billingstate.invalid && (billingstate.dirty || billingstate.touched)"
+                                    class="alert">
+                                    <div *ngIf="billingstate.errors.required">
+                                      State is required.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Zip / Postal Code</label>
+                                  <input name="billing_pincode" minlength="6" maxlength="6"
+                                    (keypress)="onlyNumbers($event)" #billingpincode="ngModel"
+                                    [(ngModel)]="userData.billing_pincode" required type="text" class="inputbox" />
+                                  <div
+                                    *ngIf="billingpincode.invalid && (billingpincode.dirty || billingpincode.touched)"
+                                    class="alert">
+                                    <div *ngIf="billingpincode.errors.required">
+                                      Postal Code is required.
+                                    </div>
+                                    <div *ngIf="billingpincode.errors.minlength">
+                                      Postal Code must be at least 6 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="">
+                            <button class="btn btn1" [disabled]="!billingFrm.form.valid" type="submit">Save & Next
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion">
+                <input type="radio" name="radacc" id="shippingAddressId" (click)="validateActivate('shipping')"
+                  class="accordian-chk input1" />
+                <h4 class="accordian-header">
+                  Shipping Address
+                  <span class="acc-icon"></span>
+                </h4>
+                <div class="accordian-content">
+                  <div class="row">
+                    <div class="col-md-12 forms-container">
+                      <form (ngSubmit)="shippingFrm.form.valid && shippingFrmSubmit(userData)" #shippingFrm="ngForm">
+                        <div class="forms-wrapper">
+                          <div class="checkbox-wrapper">
+                            <input type="checkbox" name="checkbox" (change)="checkboxValue(checkboxModel)"
+                              [(ngModel)]="checkboxModel">
+                            <p class="checkbox-label">
+                              Shipping Address is same as Billing Address *
+                            </p>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">First Name</label>
+                                  <input name="firstname" #sfirstname="ngModel" minlength="3"
+                                    [(ngModel)]="userData.sfirstname" required type="text" class="inputbox" />
+                                  <div *ngIf="sfirstname.invalid && (sfirstname.dirty || sfirstname.touched)"
+                                    class="alert">
+                                    <div *ngIf="sfirstname.errors.required">
+                                      First Name is required.
+                                    </div>
+                                    <div *ngIf="sfirstname.errors.minlength">
+                                      First Name must be at least 3 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Last Name</label>
+                                  <input name="lastname" #slastname="ngModel" minlength="3"
+                                    [(ngModel)]="userData.lastname" required type="text" class="inputbox" />
+                                  <div *ngIf="slastname.invalid && (slastname.dirty || slastname.touched)"
+                                    class="alert">
+                                    <div *ngIf="slastname.errors.required">
+                                      Last Name is required.
+                                    </div>
+                                    <div *ngIf="slastname.errors.minlength">
+                                      Last Name must be at least 3 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Email Address</label>
+                                  <input name="email" #semail="ngModel" (keyup)="validateEmail(userData.email)"
+                                    [(ngModel)]="userData.email" required type="text" class="inputbox" />
+                                  <div class="alert" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                    <h6 *ngIf="email.errors.required">Email Address is required.</h6>
+                                  </div>
+                                  <h6 class="alert" *ngIf="emailValidate">Email address is not valid</h6>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Mobile No.</label>
+                                  <input name="phone" (keypress)="onlyNumbers($event)" #sphone="ngModel" minlength="10"
+                                    maxlength="10" [(ngModel)]="userData.phone" required type="text" class="inputbox" />
+                                  <div *ngIf="sphone.invalid && (sphone.dirty || sphone.touched)" class="alert">
+                                    <div *ngIf="sphone.errors.required">
+                                      Mobile Number is required.
+                                    </div>
+                                    <div *ngIf="sphone.errors.minlength">
+                                      Mobile Number must be at least 10 characters long.
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="fields-container">
+                            <div class="inputbox-container">
+                              <label class="fields-label  mb-2">Address</label>
+                              <textarea name="shipping_address" #shippingaddress="ngModel"
+                                [(ngModel)]="userData.shipping_address" required rows="2" cols="50"></textarea>
+                              <div *ngIf="shippingaddress.invalid && (shippingaddress.dirty || shippingaddress.touched)"
+                                class="alert">
+                                <div *ngIf="shippingaddress.errors.required">
+                                  Address is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Country</label>
+                                  <select name="shipping_country" #shippingcountry="ngModel"
+                                    [(ngModel)]="userData.shipping_country" (ngModelChange)="getStateByCountry($event)"
+                                    required class="form-control" id="exampleFormControlSelect1">
+                                    <option *ngFor="let data of shipcountries" [value]="data.name">{{data.name}}
+                                    </option>
+                                  </select>
+                                  <div
+                                    *ngIf="shippingcountry.invalid && (shippingcountry.dirty || shippingcountry.touched)"
+                                    class="alert">
+                                    <div *ngIf="shippingcountry.errors.required">
+                                      Please select Country Name
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Town / City</label>
+                                  <select name="shipping_city" #shippingcity="ngModel"
+                                    [(ngModel)]="userData.shipping_city" required class="form-control"
+                                    id="exampleFormControlSelect3">
+                                    <option
+                                      *ngFor="let data of (shipcities&&shipcities.length>0?shipcities:[{name:userData.shipping_city}])"
+                                      [value]="data.name">{{data.name}}</option>
+                                  </select>
+                                  <div *ngIf="shippingcity.invalid && (shippingcity.dirty || shippingcity.touched)"
+                                    class="alert">
+                                    <div *ngIf="shippingcity.errors.required">
+                                      City is required.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">State</label>
+                                  <select name="shipping_state" #shippingstate="ngModel"
+                                    [(ngModel)]="userData.shipping_state" (ngModelChange)="getCityByState($event)"
+                                    required class="form-control" id="exampleFormControlSelect1">
+                                    <option
+                                      *ngFor="let data of (shipstates&&shipstates.length>0?shipstates:[{name:userData.shipping_state}])"
+                                      [value]="data.name">{{data.name}}</option>
+                                  </select>
+                                  <div *ngIf="shippingstate.invalid && (shippingstate.dirty || shippingstate.touched)"
+                                    class="alert">
+                                    <div *ngIf="shippingstate.errors.required">
+                                      State is required.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="fields-container">
+                                <div class="inputbox-container">
+                                  <label class="fields-label  mb-2">Zip / Postal Code</label>
+                                  <input name="shipping_pincode" minlength="6" maxlength="6"
+                                    (keypress)="onlyNumbers($event)" #shippingpincode="ngModel"
+                                    [(ngModel)]="userData.shipping_pincode" required type="text" class="inputbox" />
+                                  <div
+                                    *ngIf="shippingpincode.invalid && (shippingpincode.dirty || shippingpincode.touched)"
+                                    class="alert">
+                                    <div *ngIf="shippingpincode.errors.required">
+                                      Postal Code is required.
+                                    </div>
+                                    <div *ngIf="shippingpincode.errors.minlength">
+                                      Postal Code must be at least 6 characters long.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="">
+                            <button class="btn btn1 " [disabled]="!shippingFrm.form.valid" type="submit">Save & Next
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion">
+                <input type="radio" name="radacc" id="paymentMethodId" (click)="validateActivate('payment')"
+                  class="accordian-chk input1" />
+                <h4 class="accordian-header">
+                  Payment Method
+                  <span class="acc-icon"></span>
+                </h4>
+                <div class="accordian-content">
+                  <div class="row">
+                    <div class="col-md-12 forms-container">
+
+                      <div class="forms-wrapper">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12 pay-opt-container">
+                            <div class="pay-opt-wrapper">
+                              <div class="pay-opt-heading">
+                                <div class="pay-opt-image">
+                                  <img class="img-fluid" src="../../assets/images/cc-avenue.png" />
+                                </div>
+                                <input type="radio" [(ngModel)]="paymentMode" value="ccavenue" name="paymentMode" />
+                                <span class="pay-opt-label">CC-Avenue</span>
+                                <div class="pay-opt-content">
+                                  <p>Pay securely by Credit or Debit card or internet banking through CCAvenue Secure
+                                    Servers.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 pay-opt-container">
+                            <div class="pay-opt-wrapper">
+                              <div class="pay-opt-heading">
+                                <div class="pay-opt-image">
+                                  <img class="img-fluid" src="../../assets/images/paypal-cards.png" />
+                                </div>
+                                <input class="pay-opt" type="radio" value="paypal" [(ngModel)]="paymentMode"
+                                  name="paymentMode" />
+                                <span class="pay-opt-label">Pay-Pal</span>
+                                <div class="pay-opt-content">
+                                  <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                    account. SANDBOX
+                                    ENABLED. You can use sandbox testing accounts only. See the PayPal Sandbox Testing
+                                    Guide
+                                    for more details.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 pay-opt-note">
+                            <p>Your personal data will be used to process your order, support your experience throughout
+                              this
+                              website, and for other purposes described in our privacy policy.</p>
+
+                            <div class="checkbox-wrapper">
+                              <input name="terms" [(ngModel)]="terms" type="checkbox" />
+                              <p class="checkbox-label">I have read and agree to the website terms and conditions *
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 buttons-container">
+                            <button (click)="submitOrder()" class="btn btn1 " type="submit">
+                              <span>Place Order</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-5 cart-summary-container">
+            <div class="summary-wrapper">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12  heading">
+                <h4 class="title">
+                  <i class="fa fa-cart-plus icon" aria-hidden="true"></i>
+                  <span>Order Summary</span>
+                </h4>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12  cart-item-container" *ngFor="let data of cartData">
+                <div class="row cart-item-row">
+                  <div class="col-3 item thumbnail">
+                    <img class="img-fluid" [src]="imageServer+data.image_name" alt="">
+                  </div>
+                  <div class="col-6 item item-label">
+                    <span class="item">{{data.quantity}} X {{data.name}}</span>
+                  </div>
+                  <div class="col-3 item price">
+                    <h6>
+                      <em class="cur-symbol">{{currency?.currency_symbol}}</em> {{data.price}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 cart-item-container total">
+                <h6 class="total-price">Sub Total :
+                  <em class="cur-symbol">{{currency?.currency_symbol}}</em> {{orderTotal}}</h6>
+              </div>
+              <!-- <div class="col-12 buttons-container" *ngIf="placeOrder">
+                <button (click)=" submitOrder() " class="btn " type="button ">Place Order</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-wrapper " *ngIf="orderPlaced ">
+        <div class="orderPlaced ">
+          <div class="completed ">
+            <i class="fa fa-check " aria-hidden="true "></i>
+          </div>
+          <h1>Order completed successfully</h1>
+          <p>Thank you for ordering. We recived your order and will begin processing it soon.</p>
+          <div class="btnContainer ">
+            <button routerLink="/home " class="btn btn1 ">
+              <i class="fa fa-arrow-left " aria-hidden="true "></i>Back To Store</button>
+            <button routerLink="/order " class="btn btn1 ">
+              <i class="fa fa-shopping-bag " aria-hidden="true "></i>View Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

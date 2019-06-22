@@ -1,0 +1,151 @@
+<div class="container ProductWatchContainer page-container">
+
+  <!-- <div class="errorPopOut" *ngIf="shareData.productAddedToWatch===true">
+      <h4>{{shareData.message}}</h4>
+    </div>
+    <div class="errorPopOut" *ngIf="shareData.productAddedToCart===true">
+      <h4>{{shareData.message}}</h4>
+    </div>
+    <div class="errorPopOut" *ngIf="shareData.productDeleteFromWatch===true">
+      <h4>{{shareData.message}}</h4>
+    </div>
+    <div class="errorPopOut" *ngIf="shareData.allProductToCart===true">
+      <h4>{{shareData.message}}</h4>
+    </div>
+    <div class="errorPopOut" *ngIf="shareData.removeAllProduct===true">
+      <h4>{{shareData.message}}</h4>
+    </div> -->
+  <div class="productWatchTab">
+    <div class="row product-row">
+      <div class="col-lg-12">
+        <div class="productWatchHead">
+          <h3 class="title">Product Watch</h3>
+          <div class="addNew">
+            <button class="btn" type="button">
+              <i class="fa fa-shopping-cart"></i>
+              Add To Cart
+            </button>
+            <button class="btn" type="button">
+              <i class="fa fa-trash-o"></i>
+              Remove
+            </button>
+            <div class="addnewBox">
+              <div class="productInput " [ngClass]="{'addProductBox': showstyle }">
+                <input type="text" placeholder="Style Number">
+                <input type="text" placeholder="Size">
+              </div>
+              <button class="addIteams btn" type="button" (click)="showstyle=!showstyle">
+                <i class="fa fa-plus"></i>
+                Add Item
+              </button>
+              <a class="crossIcon" [ngClass]="{'showClosbtn': showstyle }">
+                <i class="fa fa-close"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row product-row-table">
+      <div class="col-lg-12">
+        <div class="productheader">
+          <div class="check-box-title">
+            <div class="styled-checkbox mobSelect">
+              <!-- <input type="checkbox" name="all" [checked]="isAllChecked()" (change)="checkAll($event)" /> -->
+              <input type="checkbox" />
+              <span class="CheckBox"></span>
+            </div>
+          </div>
+          <div class="itemWatch">
+            <h5 class="watchHeader">Item</h5>
+          </div>
+          <div class="availabillityWatch">
+            <h5 class="watchHeader">Availabillity</h5>
+          </div>
+          <div class="priceWatch">
+            <h5 class="watchHeader">Price</h5>
+          </div>
+          <div class="actionWatch">
+            <h5 class="watchHeader">Action</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row product-row-table-data">
+      <div class="col-lg-12 product-row">
+        <div class="productWatchdata">
+          <div class="check-box-title-data">
+            <div class="styled-checkbox">
+              <!-- <input type="checkbox" value="{{productWatchData.CartItemId}}" [(ngModel)]="productWatchData.CartItemId" /> -->
+              <input type="checkbox">
+              <span class="CheckBox"></span>
+            </div>
+          </div>
+
+
+          <div class="itemWatch">
+            <!-- <div class="itemWatch" (click)="getDetail(productWatchData)">-->
+            <div class="infoImgWatch">
+              <div class="productWatchImg">
+                <a target="_blank">
+                  <img src="https://www.shreeyantraindia.com/wp-content/uploads/2018/06/1-1.jpg">
+                </a>
+              </div>
+              <div class="imgInfo">
+                <h5 class="imgName">sasa</h5>
+                <p class="imgdeatils">
+                  <a target="_blank">
+                    saas</a>
+                </p>
+                <!-- <h5 class="imgName">{{productWatchData.Description}}</h5> -->
+                <!-- <p class="imgdeatils" >Style: {{productWatchData.Style}}</p> -->
+                <p class="imgdeatils">Began Watching on </p>
+              </div>
+            </div>
+          </div>
+          <div class="availabillityWatch">
+            <p class="watchParagraph"> in stock</p>
+          </div>
+          <div class="priceWatch">
+            <p class="watchParagraph">
+              <span>
+                MSRP: 2121
+              </span>
+              <br>
+              <span class="watchCost">Cost: 4343</span>
+            </p>
+          </div>
+          <div class="actionWatch">
+            <div class="pwatchIcons">
+              <a class="actionCart">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
+              <a class="actionRemove">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="noWatchItem">
+      <h3>THERE ARE NO ITEMS IN YOUR PRODUCT WATCH.</h3>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div class="confirmPopup">
+  <div class="popUpDetails">
+    <div class="txtPopup">
+      <p class="informtxtx">
+        Are you sure you want to remove ?
+      </p>
+      <div class="confirmBtn">
+        <button class="okBtn btn">Ok</button>
+        <button class="cancelBtn btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div> -->

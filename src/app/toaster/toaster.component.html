@@ -1,0 +1,11 @@
+<!-- 
+  please add classes according to message like. 
+  success, warning
+-->
+<div class="overlay" [ngClass]="showToaster?'active':''">
+  <div class="alert-msg" [ngClass]="message.type">
+    <h6 class="message">
+      <span>{{message?.text }}</span>
+    </h6>
+  </div>
+</div>

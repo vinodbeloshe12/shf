@@ -1,0 +1,58 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">Blog</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerLink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>Blog</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container page-container ">
+  <div class="row page-row">
+    <div class="col-12 section">
+      <div class="row cart">
+        <div class="col-md-12 blog-container">
+          <div class="blog-wrapper" *ngFor="let data of blogData | paginate: { itemsPerPage: 5, currentPage: p }">
+            <div class=" row no-gutters">
+              <div class="col-md-4 image-container">
+                <div class="image-wrapper">
+                  <img class="img-fluid" [src]="imageServer+data.image_name" alt="{{data.title_english}}">
+                </div>
+              </div>
+              <div class="col-md-8 blog-content">
+                <div class="blog-content-wrapper">
+                  <div class="title">
+                    <h3 class="title-label">{{data.title}}</h3>
+                    <span class="blog-info">{{data.date| date:'dd-MMM-yyyy | h:mm a'}}</span>
+                  </div>
+                  <P class="description" innerHtml="{{data.description.slice(0, 380)}} ... "></P>
+                  <div class="buttons-wrapper">
+                    <button class="btn" type="submit" [routerLink]="['/blogdetails',data.id, data.title_english]">
+                      <span>Read More</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

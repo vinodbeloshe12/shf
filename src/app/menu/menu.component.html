@@ -1,0 +1,212 @@
+<div class="container page-container categories-page ">
+  <div class="row page-row ">
+    <!-- page title -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container page-title-container">
+      <div class="page-title-wrapper">
+        <h3 class="title">Menu</h3>
+        <ul class="controll-buttons">
+          <li>
+            <button class="btn btn-add-new" pbutton="" type="button" (click)="addMenu()">
+              <span class="icon">
+                <i class="fa fa-plus-circle"></i>
+              </span>
+              <span class="label">{{showMenuForm ? "Close":"Add"}}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- primeng p-datatable for product list -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container table-container">
+      <div class="table-wrapper" *ngIf="!showMenuForm">
+        <p-dataTable #dataTable selectionMode="single" [responsive]="true" [globalFilter]="gb1"
+          [(selection)]="selectedUser" [value]="navData" [rows]=" 5" [paginator]="true" [pageLinks]="3">
+          <div class="locationId">
+            <p-column sortable="true" field="id" header="ID"></p-column>
+          </div>
+          <div class="businessName">
+            <p-column sortable="true" field="name_english" header="Title"></p-column>
+          </div>
+          <div class="Address1">
+            <p-column sortable="true" field="parentnav_id" header="Parent Navigation"></p-column>
+          </div>
+          <div class="CountryName">
+            <p-column sortable="true" field="sort_order" header="order"></p-column>
+          </div>
+          <div class="Locale">
+            <p-column sortable="true" field="openTarget_newTab" header="Open in New Tab"></p-column>
+          </div>
+          <div class="action">
+            <p-column field="action" header="Action">
+              <ng-template let-uData="rowData" pTemplate="body">
+                <button type="button" class="btn i-btn" pButton (click)="editMenu(uData)">
+                  <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                </button>
+                <button type="button" class="btn i-btn" pButton (click)="deleteMenu(uData)">
+                  <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </button>
+              </ng-template>
+            </p-column>
+          </div>
+
+        </p-dataTable>
+      </div>
+    </div>
+    <!-- forms for product add -->
+    <div class="col-lg-12 col-md-12 col-sm-12 section-container">
+      <div class="section-wrapper forms-wrappper" *ngIf="showMenuForm">
+        <div class="forms-container">
+          <div class="form-title">
+            <h4 class="title">Menu Form</h4>
+          </div>
+          <form #menuForm="ngForm" (ngSubmit)="saveMenu(formData)">
+            <div class="form-content">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Title</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="nameEnglish" autocomplete="off" [(ngModel)]="formData.name_english" required
+                        type="text" class="inputbox" placeholder="English" />
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="nameHindi" autocomplete="off" [(ngModel)]="formData.name_hindi" required type="text"
+                        class="inputbox" placeholder="Hindi" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!--description-->
+              <!-- <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="fields-container">
+                  <div class="label-container">
+                    <label class="fields-label ">Description in English</label>
+                  </div>
+                  <div class="">
+                    <div id="descriptionId"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="fields-container">
+                  <div class="label-container">
+                    <label class="fields-label ">Description in Hindi</label>
+                  </div>
+                  <div class="">
+
+                    <div id="descriptionIdHindi"></div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+              <!--parent nav and new-tab-->
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Parent Name</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <select name="parentNav" id="" [(ngModel)]="formData.parentnav_id">
+                        <option value="0">None </option>
+                        <option value="{{item.id}}" *ngFor="let item of navData">{{item.name_english}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Open in new tab</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <select name="newtab" id="" [(ngModel)]="formData.openTarget_newTab">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Page Type</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <select name="pagetype" id="" (ngModelChange)="showPagetype(pageTypeModel)"
+                        [(ngModel)]="pageTypeModel">
+                        <option value="static">Static</option>
+                        <option value="dynamic">Dynamic</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" *ngIf="showSelectPage">
+
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Select Page</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <select name="pagename" (ngModelChange)="setTargetUrl($event)" [(ngModel)]="formData.pagename"
+                        id="">
+                        <option *ngFor="let item of contentData">{{item.title_english}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Target Url</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="targetUrl" autocomplete="off" [(ngModel)]="formData.target_url" required type="text"
+                        class="inputbox" placeholder="" />
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="fields-container">
+                    <div class="label-container">
+                      <label class="fields-label">Order</label>
+                    </div>
+                    <div class="inputbox-container">
+                      <input name="order" autocomplete="off" [(ngModel)]="formData.sort_order" required type="text"
+                        class="inputbox" placeholder="" />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <button class="btn" type="submit" [disabled]="!menuForm.valid">submit</button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

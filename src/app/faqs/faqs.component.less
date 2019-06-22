@@ -1,0 +1,94 @@
+@import url('../../assets/css/theme.less');
+
+h1 {
+  text-align: center;
+  margin: 1.5em 0 0;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px #666;
+}
+
+.section-heading1 {
+  text-align: left;
+}
+
+.contact-title {
+  text-align: left;
+  color: @primary;
+  text-transform: uppercase;
+  position: relative;
+  font-weight: 600;
+}
+
+.accordion {
+  margin: 30px auto;
+  max-width: 40em;
+
+  .option {
+    position: relative;
+    margin-bottom: 10px;
+    border: 1px solid @gray;
+    transition: 0.5s all;
+
+    .toggle {
+      display: none;
+    }
+
+    .title {
+      background: @white;
+      padding: 1em 1.5em 1em 1.05em;
+      display: block;
+      transition: 0.5s all;
+      cursor: pointer;
+      line-height: 20px;
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        right: 1.25em;
+        top: 1.25em;
+        width: 2px;
+        height: 0.75em;
+        background-color: #7A7572;
+        transition: all 0.2s;
+      }
+
+      &:after {
+        transform: rotate(90deg);
+      }
+    }
+
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.5s all;
+
+      p {
+        margin: 0;
+        padding: 0.5em 1em 1em;
+        line-height: 1.5;
+      }
+    }
+
+    &.active {
+      border-color: @primary;
+      box-shadow: @box-shadow-hover;
+
+      .content {
+        max-height: 500px;
+        overflow-y: scroll;
+      }
+
+      .title {
+        color: @white;
+        background-color: @primary;
+
+        &:after,
+        &:before {
+          transform: rotate(90deg) !important;
+          background-color: @white  !important;
+        }
+      }
+    }
+  }
+}

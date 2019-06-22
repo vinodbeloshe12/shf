@@ -1,0 +1,55 @@
+<div class="container-fluid page-header-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-header-wrapper">
+        <div class="page-header">
+          <h2 class="title">Patent Certificate</h2>
+          <ul class="breadcrumbs">
+            <li class="list" routerlink="/">
+              <a>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a>
+                <span>Patent Certificate</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container page-container">
+  <div class="row page-row">
+    <div class="col-lg-12 col-md-12 col-sm-12 picture-gallery">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 pcture-container">
+          <div class="picture-wrapper" (click)="openCertificate(1)">
+            <img class="img-fluid" src="assets/images/index-img_1.jpg">
+            <h3 class="picture-title">Patent Certificate 1</h3>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 pcture-container">
+          <div class="picture-wrapper" (click)="openCertificate(2)">
+            <img class="img-fluid" src="assets/images/index-img_2.jpg">
+            <h3 class="picture-title">Patent Certificate 2</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="popUpContainerId">
+  <div class="overlay-container">
+    <a class="btn-close" (click)="close()" href="javascript:void(0);">
+      <i class="fa fa-times"></i>
+    </a>
+    <div class="overlay-wrapper">
+      <img class="img-fluid" src="http://www.shreeyantraindia.com/wp-content/uploads/2018/09/index-img_{{id}}.jpg">
+    </div>
+  </div>
+</div>

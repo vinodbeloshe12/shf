@@ -1,0 +1,19 @@
+@import url('../../assets/css/theme.less');
+
+.video-gallery-container {
+  .video-container {
+    margin-bottom: 30px;
+
+    .video-wrapper {
+      border: @border;
+      height: 100%;
+      padding: 5px;
+      transition: 0.5s all;
+
+      &:hover {
+        box-shadow: @box-shadow-hover;
+        border-color: @primary;
+      }
+    }
+  }
+}
